@@ -22,7 +22,7 @@ function injectCustomDiv() {
   }
 
 
-  // this will inject a script into the website we are on
+  
 function injectScript(file, node) {
     const th = document.getElementsByTagName(node)[0];
     const s = document.createElement('script');
@@ -32,7 +32,7 @@ function injectScript(file, node) {
 }
 
 
-// how to send message to the injected script
+
 function sendMessageToInjectedScript(message) {
     window.postMessage({ type: "FROM_CONTENT", customMessage: message }, "*");
 }
@@ -41,7 +41,7 @@ function sendUpvoteMessageToInjectedScript(url) {
     window.postMessage({ type: "UPVOTE_CONTENT", contentUrl: url }, "*");
 }
 
-// listener for messages from the injected script
+
 window.addEventListener('message', function(event) {
     
     if (event.source === window && event.data.type && event.data.type == "FROM_PAGE") {
@@ -54,11 +54,12 @@ window.addEventListener('message', function(event) {
 window.onload = () => {
     injectCustomDiv();
 
-    // Inject ethers.js library first (important)
-    injectScript(chrome.runtime.getURL('ethers.min-6.8.1.js'), 'body'); // Adjust the path as necessary
+    // Inject ethers.js library first
+    injectScript(chrome.runtime.getURL('ethers.min-6.8.1.js'), 'body'); 
 
+    
     injectScript(chrome.runtime.getURL('injectedscript.js'), 'body');
 
-    //test
+    
     sendMessageToInjectedScript("Hello from content script!");
 };
