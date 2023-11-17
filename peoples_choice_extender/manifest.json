@@ -1,0 +1,33 @@
+{
+    "manifest_version": 3,
+    "name": "Peoples Choice Extender",
+    "version": "1.0",
+    "permissions": ["activeTab", "scripting"],
+    "content_scripts": [
+      {
+        "matches": ["*://www.youtube.com/*"],
+        "js": ["youtube.js"]
+      }
+    ],
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "img/16.png",
+        "48": "img/48.png",
+        "64": "img/64.png",
+        "128": "img/128.png"
+      }
+    },
+    "web_accessible_resources": [
+        {
+          "resources": ["injectedscript.js"],
+          "matches": ["<all_urls>"]
+        },
+        {
+          "resources": ["ethers.min-6.8.1.js"],
+          "matches": ["<all_urls>"]
+        }
+      ]
+      
+  }
+  
