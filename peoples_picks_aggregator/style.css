@@ -1,0 +1,45 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #423f3f;
+}
+
+table {
+    width: auto;
+    margin-top: 10px;
+    border-collapse: collapse;
+    overflow-x: auto;
+}
+.table-title{
+color: antiquewhite;
+}
+
+.vote-icon.up {
+    color: darkgreen;
+}
+
+.vote-icon.down {
+    color: darkred;
+}
+
+.vote-icon.equal {
+    color: gray;
+}
+
+td {
+    background-color: #423f3f;
+}
+
+tr.top-row,
+tr.subtext-row {
+    color: lightgray;
+}
+
+.voteicon {
+    vertical-align: middle;
+}
+
+.empty {
+    height: 10px;
+}
+
