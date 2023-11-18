@@ -95,11 +95,11 @@ const config: HardhatUserConfig = {
     },
     etherscan: {
         apiKey: {
-            scrollSepolia: 'VGT2V589VNFQ4CFKJKYR7VW8XPC3WIACCW',
+            scroll: 'VGT2V589VNFQ4CFKJKYR7VW8XPC3WIACCW',
         },
         customChains: [
             {
-            network: 'scrollSepolia',
+            network: 'scroll',
             chainId: 534351,
             urls: {
                 apiURL: 'https://sepolia-blockscout.scroll.io/api',
