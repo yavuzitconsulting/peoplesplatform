@@ -79,7 +79,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 
-// Function to calculate and display the total donation sum
 function calculateAndDisplayDonationSum() {
   var months = document.getElementById('donationOptions').value;
   var monthlyAmount = document.getElementById('donateAmountPerMonth').value;
@@ -87,9 +86,13 @@ function calculateAndDisplayDonationSum() {
   // Calculate the total donation sum
   var totalDonation = months * monthlyAmount;
 
+  // Round to two decimal places and convert back to a number
+  totalDonation = Number(totalDonation.toFixed(3));
+
   // Display the result in the calculatedSumDonation field
-  document.getElementById('calculatedSumDonation').value = totalDonation; // To fix to two decimal places
+  document.getElementById('calculatedSumDonation').value = totalDonation;
 }
+
 
 
 // Event listeners for the dropdown and the monthly amount input field
