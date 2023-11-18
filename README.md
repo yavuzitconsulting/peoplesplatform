@@ -32,6 +32,8 @@ Automatic Payout: One challenge is implementing the automatic payout system. Opt
 Open Topics
 Automatic Payout Mechanism: We're exploring options for efficient and fair payout mechanisms, aiming to avoid censorship by large companies.
 An API for the extension was suggested and should be discussed.
+We are still discussing Tokenomics, a way to distribute fragmental units of the donation pool back to users as a "thank you" for participation, this can be done because we can only use funds that are distributable on the amount of predefined fragments (months), so there can be some leftover that can be utilized for that and also for DAU actions.
+We are considering handing out Tokens or NFTs based on user and creator distributions which can be utilized in future tokenomics as an incentive.
 
 Join the Revolution!
 Our project seeks to break the chains of advertiser-driven social media content and bring back true freedom of expression. By decentralizing the voting process, we aim to create a more community-driven and tailored social media experience. Join us in reshaping the future of social media and supporting free speech! 🚀🌐
