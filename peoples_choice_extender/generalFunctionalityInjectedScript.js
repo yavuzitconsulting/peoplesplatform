@@ -131,10 +131,9 @@ const contractABI = [
   
     [
       {"contractAddress":"0x188C8d37fb966713CbDc7cCc1A6ed3da060FFac3", "chainId": 501984},
-      {"contractAddress":"TBD", "chainId": 1},
-      {"contractAddress":"TBD", "chainId": 2},
-      {"contractAddress":"TBD", "chainId": 3},
-      {"contractAddress":"TBD", "chainId": 4},
+      {"contractAddress":"0x314AA36352771307E942FaeD6d8dfB2398916E92", "chainId": 534351},
+      {"contractAddress":"0x9A1554a110A593b5C137643529FAA258a710245C", "chainId": 245022926},
+      {"contractAddress":"0xffC39C76C68834FE1149554Ccc1a76C2F1281beD", "chainId": 10200}
     ]
   ;
   let contractAddress;

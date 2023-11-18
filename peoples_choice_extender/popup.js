@@ -41,7 +41,7 @@ function sendChainRequestToInjectedScript() {
       // Check if there's an error with the query
       if (chrome.runtime.lastError) {
           // Handle the error here, for example, by opening a default URL
-          window.open(`https://www.caleidoscode.io/?chain=cryptng&p=1`, '_blank');
+          window.open(`https://www.caleidoscode.io/?chain=cryptng501984&p=1`, '_blank');
           return; // Exit the function
       }
 
@@ -50,7 +50,7 @@ function sendChainRequestToInjectedScript() {
           // Check if there's an error with sendMessage
           if (chrome.runtime.lastError) {
               // Handle the error here, for example, by opening a default URL
-              window.open(`https://www.caleidoscode.io/?chain=cryptng&p=1`, '_blank');
+              window.open(`https://www.caleidoscode.io/?chain=501984&p=1`, '_blank');
           }
       });
   });
@@ -69,12 +69,12 @@ function sendReceiveMessageToInjectedScript() {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === "PCE_RESPONSE_CHAIN") {
     const currentChainInfo = message.currentChainInfo;
-    let chainName = currentChainInfo.chainName;
-    if(chainName == 'unknown' || chainName == '')
+    let chainId = currentChainInfo.chainId;
+    if(chainId == 'unknown' || chainId == '')
     {
-      chainName = "cryptng";
+      chainId = "501984";
     }
-    window.open(`https://www.caleidoscode.io/?chain=${chainName}&p=1`, '_blank');
+    window.open(`https://www.caleidoscode.io/?chain=${chainId}&p=1`, '_blank');
   }
 });
 
