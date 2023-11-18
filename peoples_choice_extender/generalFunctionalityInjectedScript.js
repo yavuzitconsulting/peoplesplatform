@@ -130,7 +130,7 @@ const contractABI = [
   let contractAddressMapping = 
   
     [
-      {"contractAddress":"0x188C8d37fb966713CbDc7cCc1A6ed3da060FFac3", "chainId": 51984},
+      {"contractAddress":"0x188C8d37fb966713CbDc7cCc1A6ed3da060FFac3", "chainId": 501984},
       {"contractAddress":"TBD", "chainId": 1},
       {"contractAddress":"TBD", "chainId": 2},
       {"contractAddress":"TBD", "chainId": 3},
@@ -152,11 +152,12 @@ const contractABI = [
 
   
   // Get the current chain ID from MetaMask
-  const chainId = (await provider.getNetwork()).chainId;
+  const chainId = Number((await provider.getNetwork()).chainId);
 
   // Find the contract address corresponding to the current chain ID
   const mapping = contractAddressMapping.find(m => m.chainId === chainId);
   if (!mapping) {
+    console.log('chainid not found in mapping: '+chainId);
     throw new Error(`Contract address not found for chain ID ${chainId}`);
   }
 
@@ -274,6 +275,32 @@ async function callContractFunctionForReceive(months) {
 
 
 async function callContractFunctionForVote(receiver, url, upvote, title) {
+
+  //some ui behavior
+// Get all elements with the specified class within elements with the specified ID
+var elements = document.querySelectorAll('#pce-ext-inject div.replaceable');
+
+// Check if any elements are found
+if (elements.length > 0) {
+    // Iterate over all found elements
+    elements.forEach(function(element) {
+        // Hide the original content
+        element.style.display = 'none';
+
+        // Create the new HTML structure
+        var newHtml = document.createElement('div');
+        newHtml.className = 'typing';
+        newHtml.innerHTML = "<span></span><span></span><span></span>";
+
+        // Append the new HTML after the hidden element
+        element.parentNode.insertBefore(newHtml, element.nextSibling);
+    });
+} else {
+    console.log("No elements with class 'replaceable' inside elements with ID 'pce-ext-inject' found.");
+}
+
+
+  //
   if (!ethereum.isMetaMask) {
       console.error('MetaMask is not available');
       return;
@@ -292,7 +319,39 @@ async function callContractFunctionForVote(receiver, url, upvote, title) {
       console.log('Transaction sent:', transaction.hash);
       await transaction.wait();
       console.log('Transaction confirmed');
+
+
+      //end the ui stuff
+// Iterate over all elements to restore their original state
+elements.forEach(function(element) {
+  // Make the element visible again
+  element.style.display = '';
+
+  // Remove the appended 'typing' element
+  if (element.nextSibling && element.nextSibling.className === 'typing') {
+      element.parentNode.removeChild(element.nextSibling);
+  }
+});
+
+      //
   } catch (error) {
+
+    
+
+      //end the ui stuff
+// Iterate over all elements to restore their original state
+elements.forEach(function(element) {
+  // Make the element visible again
+  element.style.display = '';
+
+  // Remove the appended 'typing' element
+  if (element.nextSibling && element.nextSibling.className === 'typing') {
+      element.parentNode.removeChild(element.nextSibling);
+  }
+});
+
+
+      //
       console.error('Transaction failed:', error);
   }
 }
