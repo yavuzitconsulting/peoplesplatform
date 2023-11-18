@@ -165,6 +165,7 @@ function injectCustomDiv() {
             {
                 console.log(error);
             }
+
                 try
                 {
                     url = postContainerElement.querySelector('[data-click-id="body"').href;
@@ -174,16 +175,19 @@ function injectCustomDiv() {
             {
                 url = window.location.href;
             }
-
-            try
+            if(!postTitle)
             {
-                postTitle =  document.querySelector('div[data-adclicklocation="title"] div div h1').textContent;
+              try
+              {
+                  postTitle =  document.querySelector('div[data-adclicklocation="title"] div div h1').textContent;
+              }
+              catch(error)
+              {
+  
+                  postTitle = document.querySelector('div[data-adclicklocation="title"] div').textContent;
+              }
             }
-            catch(error)
-            {
-
-                postTitle = document.querySelector('div[data-adclicklocation="title"] div').textContent;
-            }
+           
             
             document.getElementById(buttonIdLike).addEventListener('click', () => {
                 sendUpvoteMessageToInjectedScript(receiver, url,postTitle);
