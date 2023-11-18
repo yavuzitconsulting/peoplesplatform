@@ -86,8 +86,10 @@ function injectCustomDiv() {
 
               // Combine the style tag and button HTML
               customDiv.innerHTML = buttonStyle + `
+              <div class="replaceable">
                 <button id="${buttonIdLike}" class="pce-ext-button">&#x1F44D;</button> 
                 <button id="${buttonIdDislike}" class="pce-ext-button">&#x1F44E;</button>
+                </div>
               `;
 
                   let videoUrl = window.location.href;

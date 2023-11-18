@@ -277,8 +277,27 @@ async function callContractFunctionForReceive(months) {
 async function callContractFunctionForVote(receiver, url, upvote, title) {
 
   //some ui behavior
+// Get all elements with the specified class within elements with the specified ID
+var elements = document.querySelectorAll('#pce-ext-inject div.replaceable');
 
+// Check if any elements are found
+if (elements.length > 0) {
+    // Iterate over all found elements
+    elements.forEach(function(element) {
+        // Hide the original content
+        element.style.display = 'none';
 
+        // Create the new HTML structure
+        var newHtml = document.createElement('div');
+        newHtml.className = 'typing';
+        newHtml.innerHTML = "<span></span><span></span><span></span>";
+
+        // Append the new HTML after the hidden element
+        element.parentNode.insertBefore(newHtml, element.nextSibling);
+    });
+} else {
+    console.log("No elements with class 'replaceable' inside elements with ID 'pce-ext-inject' found.");
+}
 
 
   //
@@ -300,7 +319,39 @@ async function callContractFunctionForVote(receiver, url, upvote, title) {
       console.log('Transaction sent:', transaction.hash);
       await transaction.wait();
       console.log('Transaction confirmed');
+
+
+      //end the ui stuff
+// Iterate over all elements to restore their original state
+elements.forEach(function(element) {
+  // Make the element visible again
+  element.style.display = '';
+
+  // Remove the appended 'typing' element
+  if (element.nextSibling && element.nextSibling.className === 'typing') {
+      element.parentNode.removeChild(element.nextSibling);
+  }
+});
+
+      //
   } catch (error) {
+
+    
+
+      //end the ui stuff
+// Iterate over all elements to restore their original state
+elements.forEach(function(element) {
+  // Make the element visible again
+  element.style.display = '';
+
+  // Remove the appended 'typing' element
+  if (element.nextSibling && element.nextSibling.className === 'typing') {
+      element.parentNode.removeChild(element.nextSibling);
+  }
+});
+
+
+      //
       console.error('Transaction failed:', error);
   }
 }
