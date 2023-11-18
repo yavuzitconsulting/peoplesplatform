@@ -143,7 +143,7 @@ const chainData = {
     contractAddress: "0x188C8d37fb966713CbDc7cCc1A6ed3da060FFac3",
     data: [],
     latestBlockNumber: 0,
-    fromBlock: 0,
+    fromBlock: 4110,
     toBlock: 0,
     lastBlockNumber: undefined,
     
