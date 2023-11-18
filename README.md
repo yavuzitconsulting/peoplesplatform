@@ -10,6 +10,7 @@
 | Diamond Proxy Transactions | [Gnosis Chiado Blockscout Contract Transactions](https://gnosis-chiado.blockscout.com/address/0xffC39C76C68834FE1149554Ccc1a76C2F1281beD) |
 | Verified Contract Address | 0x41A9a3C9Ffb75b1020f882b4a4eB1cef8F3EA5AF |
 | Exploerer Link | [Gnosis Chiado Blockscout verified Contract](https://gnosis-chiado.blockscout.com/address/0x41A9a3C9Ffb75b1020f882b4a4eB1cef8F3EA5AF?tab=contract) |
+| Tweet | [ITLeaks tweets about Gnosis @ETHGlobal Istanbul Hackathon](https://twitter.com/ITLeaks/status/1726019292091625798) |
 
 | SCROLL SEPOLIA CHAIN |   |
 | --- | --- |
