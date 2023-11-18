@@ -1,10 +1,12 @@
 import {HardhatUserConfig} from 'hardhat/types';
 import 'hardhat-deploy';
 import 'hardhat-deploy-ethers';
+import "@nomicfoundation/hardhat-toolbox";
+require("@nomicfoundation/hardhat-chai-matchers");
 
 const config: HardhatUserConfig = {
     solidity: {
-        version: "0.8.18",
+        version: "0.8.20",
         settings: {
             optimizer: {
                 enabled: true,
@@ -16,6 +18,7 @@ const config: HardhatUserConfig = {
     },
     namedAccounts: {
         deployer: 0,
+        receiver: 1,
     },
     defaultNetwork: "testnet",
     networks: {
