@@ -194,7 +194,7 @@ async function callContractFunctionForDonate(amount, months) {
 
     //dies here
     const provider = new ethers.BrowserProvider(window.ethereum);
-    const signer = provider.getSigner();
+    const signer = await provider.getSigner();
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
     const factor = BigInt(1000000000000000000);
     const weiAmount = multiplyDecimalWithBigInt(amount, factor,);

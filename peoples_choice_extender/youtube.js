@@ -9,11 +9,41 @@ function injectCustomDiv() {
             customDiv.style.display="flex";
             customDiv.style.flexDirection="row";
             customDiv.style.marginRight="2rem";
-            
-          const buttonId = generateUniqueAlphanumericId();
-          const buttonIdLike = buttonId+"L";  
-          const buttonIdDislike = buttonId+"D";  
-          customDiv.innerHTML = `<button id="${buttonIdLike}" style="background: none; cursor: pointer; outline: none; padding: 0; margin: 0; width: 3rem; user-select: none; border: white solid 1px; height: 3rem; border-radius: 20%;">&#x1F44D;</button> <button id="${buttonIdDislike}" style="background: none; cursor: pointer; outline: none; padding: 0; margin: 0; width: 3rem; user-select: none; border: white solid 1px; height: 3rem; border-radius: 20%;">&#x1F44E;</button>`;
+                          
+              // Define the style tag as a string
+              const buttonStyle = `
+                <style>
+                  .pce-ext-button {
+                    background: none; 
+                    cursor: pointer; 
+                    outline: none; 
+                    padding: 0; 
+                    margin: 0; 
+                    width: 3rem; 
+                    user-select: none; 
+                    border: white solid 1px; 
+                    height: 3rem; 
+                    border-radius: 20%;
+                    transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+                  }
+
+                  .pce-ext-button:hover {
+                    background-color: #f0f0f0; /* Hover background color */
+                    border-color: #d0d0d0; /* Hover border color */
+                  }
+                </style>
+              `;
+
+              // Generate unique IDs for the buttons
+              const buttonId = generateUniqueAlphanumericId();
+              const buttonIdLike = buttonId + "L";  
+              const buttonIdDislike = buttonId + "D";  
+
+              // Combine the style tag and button HTML
+              customDiv.innerHTML = buttonStyle + `
+                <button id="${buttonIdLike}" class="pce-ext-button">&#x1F44D;</button> 
+                <button id="${buttonIdDislike}" class="pce-ext-button">&#x1F44E;</button>
+              `;
 
 
           targetDiv.prepend(customDiv);
@@ -75,13 +105,12 @@ window.addEventListener('message', function(event) {
 });
 
 
+setTimeout(()=>{
+  injectCustomDiv();
 
-window.onload = () => {
-    injectCustomDiv();
+  // Then inject your custom script
+  injectScript(chrome.runtime.getURL('contentPageInjectedScript.js'), 'body');
 
-    // Then inject your custom script
-    injectScript(chrome.runtime.getURL('contentPageInjectedScript.js'), 'body');
-
-    // Example usage
-    sendMessageToInjectedScript("Hello from content script!");
-};
+  // Example usage
+  sendMessageToInjectedScript("Hello from content script!");
+},3000);

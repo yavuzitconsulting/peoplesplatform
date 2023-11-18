@@ -97,12 +97,12 @@ window.addEventListener('message', function(event) {
 
 
 
-window.onload = () => {
+setTimeout(()=>{
     injectCustomDiv();
-
+  
     // Then inject your custom script
     injectScript(chrome.runtime.getURL('contentPageInjectedScript.js'), 'body');
-
+  
     // Example usage
     sendMessageToInjectedScript("Hello from content script!");
-};
+  },3000);
