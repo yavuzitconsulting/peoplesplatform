@@ -158,16 +158,25 @@ const chainData = {
   },
   sepolia: {
     rpcurl: "https://sepolia-rpc.scroll.io/",
-    contractAddress: "0x9A1554a110A593b5C137643529FAA258a710245C",
+    contractAddress: "0x314AA36352771307E942FaeD6d8dfB2398916E92",
     data: [],
     latestBlockNumber: 0,
     fromBlock: 0,
     toBlock: 0,
     lastBlockNumber: undefined,
   },
+  neonlabs: {
+    rpcurl: "https://devnet.neonevm.org",
+    contractAddress: "0x9A1554a110A593b5C137643529FAA258a710245C",
+    data: [],
+    latestBlockNumber: 0,
+    fromBlock: 0,
+    toBlock: 0,
+    lastBlockNumber: undefined,
+  }
 };
 
-let activeChain = chainData.chiado; // Set the initial active chain
+let activeChain = chainData.cryptng; // Set the initial active chain
 
 let _provider = new ethers.JsonRpcProvider(activeChain.rpcurl);
 let _directNetworkContract = new ethers.Contract(activeChain.contractAddress, contractABI, _provider);
@@ -191,22 +200,24 @@ app.get('/aggregate', async (req, res) => {
     
     if (chainIdentifier) {
       const selectedChain = chainData[chainIdentifier];
-      console.log('selected chain', selectedChain);
+      console.log('aggregate started:');
+      console.log('selectedChain', selectedChain);
+      console.log('page', page);
+
 
       if (selectedChain) {
         // Change the active chain
         activeChain = selectedChain;
-        console.log('current chain', activeChain);
+        console.log(`current chain ${activeChain} with length: ${activeChain.data.length}`);
         _provider = new ethers.JsonRpcProvider(activeChain.rpcurl);
         _directNetworkContract = new ethers.Contract(activeChain.contractAddress, contractABI, _provider);
   
         // Check if the chain data is already loaded
-        console.log('activeChain.data.length', activeChain.data.length)
         if (activeChain.data.length === 0) {
           await loadData();
+          console.log(`Active chain changed to ${chainIdentifier}`);
         }
   
-        console.log(`Active chain changed to ${chainIdentifier}`);
       } else {
         return res.status(404).send('Chain identifier not found.');
       }
@@ -223,7 +234,7 @@ app.get('/aggregate', async (req, res) => {
         const hostMatch = getHost(item.url).toLowerCase().includes(filterKeyword.toLowerCase());
         return hostMatch;
       });
-      console.log('filteredData', filteredData.length);
+      console.log('Filtered Data length:', filteredData.length);
     }
 
     // Calculate up and downvotes, totalVotes, and trend
@@ -266,7 +277,7 @@ app.get('/aggregate', async (req, res) => {
 
     // Paginate data
     const paginatedData = aggregatedData.slice(startIndex, endIndex);
-    console.log('paginatedData', paginatedData.length);
+    console.log('Paginated data length:', paginatedData.length);
 
     res.json(paginatedData);
   } catch (error) {
@@ -314,10 +325,10 @@ async function loadData() {
   try {
     const newData = await getVoteEvents();
     activeChain.data = [...activeChain.data, ...newData];
-    console.log('Data reloaded.');
-    console.log('interval:' + refreshInterval);
+    console.log('Data loaded.');
+    console.log('Refresh speed:' + refreshInterval);
   } catch (error) {
-    console.error('Error loading data from data.json:', error);
+    console.error('Error loading data:', error);
   }
 }
 
