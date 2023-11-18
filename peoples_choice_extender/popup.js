@@ -18,6 +18,10 @@ document.getElementById("donateNowButton").onclick = function() {
   }
 };
 
+document.querySelector('.visitus').addEventListener('click', function() {
+  window.open('https://www.caleidoscode.io', '_blank');
+});
+
 //to generalScriptInjector
 function sendDonateMessageToInjectedScript(donationAmount, months) {
 

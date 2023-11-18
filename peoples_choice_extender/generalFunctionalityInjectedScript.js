@@ -126,9 +126,44 @@ const contractABI = [
       "type": "function"
     }
   ];
-  const contractAddress = '0x188C8d37fb966713CbDc7cCc1A6ed3da060FFac3';  // set to current MetaTrail_DiamondProxy contract address
+
+  let contractAddressMapping = 
+  
+    [
+      {"contractAddress":"0x188C8d37fb966713CbDc7cCc1A6ed3da060FFac3", "chainId": 51984},
+      {"contractAddress":"TBD", "chainId": 1},
+      {"contractAddress":"TBD", "chainId": 2},
+      {"contractAddress":"TBD", "chainId": 3},
+      {"contractAddress":"TBD", "chainId": 4},
+    ]
+  ;
+  let contractAddress;
   
 
+  let provider ;
+  let signer ;
+  let contract ;
+
+  async function initiateContract()
+  {
+    
+  provider = new ethers.BrowserProvider(window.ethereum);
+  signer = await provider.getSigner();
+
+  
+  // Get the current chain ID from MetaMask
+  const chainId = (await provider.getNetwork()).chainId;
+
+  // Find the contract address corresponding to the current chain ID
+  const mapping = contractAddressMapping.find(m => m.chainId === chainId);
+  if (!mapping) {
+    throw new Error(`Contract address not found for chain ID ${chainId}`);
+  }
+
+  contractAddress = mapping.contractAddress;
+
+  contract = new ethers.Contract(contractAddress, contractABI, signer);
+  }
 
 window.ethereum = window.ethereum || {};
 
@@ -194,9 +229,7 @@ async function callContractFunctionForDonate(amount, months) {
 
 
     //dies here
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    const signer = await provider.getSigner();
-    const contract = new ethers.Contract(contractAddress, contractABI, signer);
+    await initiateContract();
     const factor = BigInt(1000000000000000000);
     const weiAmount = multiplyDecimalWithBigInt(amount, factor,);
     const currentDate = new Date();
@@ -222,9 +255,7 @@ async function callContractFunctionForReceive(months) {
 
 
   //dies here
-  const provider = new ethers.BrowserProvider(window.ethereum);
-  const signer = await provider.getSigner();
-  const contract = new ethers.Contract(contractAddress, contractABI, signer);
+    await initiateContract();
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth() + 1; 
@@ -250,9 +281,7 @@ async function callContractFunctionForVote(receiver, url, upvote, title) {
 
 
   //dies here
-  const provider = new ethers.BrowserProvider(window.ethereum);
-  const signer = await provider.getSigner();
-  const contract = new ethers.Contract(contractAddress, contractABI, signer);
+  await initiateContract();
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth() + 1; 
