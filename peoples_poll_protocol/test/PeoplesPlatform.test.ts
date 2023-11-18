@@ -15,6 +15,12 @@ describe("PeoplesPlatform contract", function() {
     before(async () => {
  
         [owner,address1,address2] = await ethers.getSigners();
+        console.log('owner',owner.address);
+        console.log('address1',address1.address);
+        console.log('address2',address2.address);
+        console.log('owner',owner );
+        console.log('address1',address1.privateKey );
+        console.log('address2',address2.privateKey );
         const deployment = await deployments.fixture(["PeoplesPlatform"]);
         contractAddress=deployment.PeoplesPlatform_DiamondProxy.address;
         peoplesPlatformContract = await hre.ethers.getContractAt("PeoplesPlatformFacet",contractAddress);
