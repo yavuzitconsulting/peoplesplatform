@@ -1,5 +1,22 @@
 # people's platform project
 
+# DEPLOYED TO THE FOLLOWING CHAINS
+
+## GNOSIS CHIADO CHAIN:
+Diamond Proxy Contract Address: 0xffC39C76C68834FE1149554Ccc1a76C2F1281beD
+Verified Contract Address: 0x41A9a3C9Ffb75b1020f882b4a4eB1cef8F3EA5AF
+https://gnosis-chiado.blockscout.com/address/0x41A9a3C9Ffb75b1020f882b4a4eB1cef8F3EA5AF?tab=contract
+
+## SCROLL SEPOLIA CHAIN:
+Diamond Proxy Contract Address: 0x314AA36352771307E942FaeD6d8dfB2398916E92
+Verified Contract Address: 0xFC20482857782Ff1592C42d77b96e9d8698870F9
+https://sepolia-blockscout.scroll.io/address/0xFC20482857782Ff1592C42d77b96e9d8698870F9/contracts#address-tabs
+
+## NEON EVM DEV CHAIN:
+Diamond Proxy Contract Address: 0x9A1554a110A593b5C137643529FAA258a710245C
+Verified Contract Address:  0xd351cA594a02a6C555D2DCe3Ad6Ebd6b5003904f
+https://devnet.neonscan.org/address/0xd351cA594a02a6C555D2DCe3Ad6Ebd6b5003904f#contract
+
 DRAFT V0.1 - 18-11-2023 / 17:43
 
 Revive the Internet with the People's Platform Project! Our mission: to reclaim the social media landscape from advertiser domination. This project enables individuals to freely promote and support their favorite content and creators. It's a space where you can monetize your creative work without the restrictions of advertiser censorship. 
