@@ -37,5 +37,40 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         // Now, you can post this message to the webpage if needed
         window.postMessage({ type: "PCE_RECEIVE_MESSAGE", months: months }, "*");
       }
+
+      
+    if (message.type === "PCE_REQUEST_CHAIN") {
+        // Now, you can post this message to the webpage if needed
+        window.postMessage({ type: "PCE_REQUEST_CHAIN" }, "*");
+      }
+
+      
   });
+
+
+
+  window.addEventListener('message', async function(event) {
+    try {
+        // Validate the source of the message
+        if (event.source !== window) {
+            throw new Error('Message source is not the same window.');
+        }
+
+        // Handling different message types
+        switch (event.data.type) {
+            case "PCE_RESPONSE_CHAIN":
+                const currentChainInfo = event.data.currentChainInfo;
+                chrome.runtime.sendMessage({type: "PCE_RESPONSE_CHAIN", currentChainInfo});
+
+                break;
+
+            default:
+                break;
+        }
+    } catch (error) {
+        console.error("Error in message event listener:", error.message);
+        // Handle the error appropriately
+    }
+});
+
   

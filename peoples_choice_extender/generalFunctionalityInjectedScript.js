@@ -199,6 +199,14 @@ window.addEventListener('message', async function(event) {
               let tmonths = event.data.months;
               callContractFunctionForReceive(tmonths);
               break;
+
+              
+            case "PCE_REQUEST_CHAIN":
+              let currentChainInfo = await getCurrentChainNameAndId();
+              window.postMessage({ type: "PCE_RESPONSE_CHAIN", currentChainInfo }, "*");
+              break;
+
+
             default:
                 break;
         }
@@ -208,7 +216,15 @@ window.addEventListener('message', async function(event) {
     }
 });
 
+async function getCurrentChainNameAndId()
+{ 
+  await initiateContract();
+  const network = await provider.getNetwork();
+  const chainId =Number(network.chainId);
+  const chainName = network.name;
 
+  return { chainId, chainName };
+}
 
 function multiplyDecimalWithBigInt(decimal, bigInt) {
     // Find the number of decimal places in the input
@@ -230,7 +246,7 @@ async function callContractFunctionForDonate(amount, months) {
 
 
     //dies here
-    await initiateContract();
+    await await initiateContract();
     const factor = BigInt(1000000000000000000);
     const weiAmount = multiplyDecimalWithBigInt(amount, factor,);
     const currentDate = new Date();
@@ -256,7 +272,7 @@ async function callContractFunctionForReceive(months) {
 
 
   //dies here
-    await initiateContract();
+    await await initiateContract();
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth() + 1; 
@@ -308,7 +324,7 @@ if (elements.length > 0) {
 
 
   //dies here
-  await initiateContract();
+  await await initiateContract();
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth() + 1; 
