@@ -1,21 +1,25 @@
 # people's platform project
 
-# DEPLOYED TO THE FOLLOWING CHAINS
+## DEPLOYED TO THE FOLLOWING CHAINS
 
-## GNOSIS CHIADO CHAIN:
-Diamond Proxy Contract Address: 0xffC39C76C68834FE1149554Ccc1a76C2F1281beD
-Verified Contract Address: 0x41A9a3C9Ffb75b1020f882b4a4eB1cef8F3EA5AF
-https://gnosis-chiado.blockscout.com/address/0x41A9a3C9Ffb75b1020f882b4a4eB1cef8F3EA5AF?tab=contract
+| GNOSIS CHIADO CHAIN |   |
+| --- | --- |
+| Diamond Proxy Contract Address | 0xffC39C76C68834FE1149554Ccc1a76C2F1281beD |
+| Verified Contract Address | 0x41A9a3C9Ffb75b1020f882b4a4eB1cef8F3EA5AF |
+| Exploerer Link | [Gnosis Chiado Blockscout verified Contract](https://gnosis-chiado.blockscout.com/address/0x41A9a3C9Ffb75b1020f882b4a4eB1cef8F3EA5AF?tab=contract) |
 
-## SCROLL SEPOLIA CHAIN:
-Diamond Proxy Contract Address: 0x314AA36352771307E942FaeD6d8dfB2398916E92
-Verified Contract Address: 0xFC20482857782Ff1592C42d77b96e9d8698870F9
-https://sepolia-blockscout.scroll.io/address/0xFC20482857782Ff1592C42d77b96e9d8698870F9/contracts#address-tabs
+| SCROLL SEPOLIA CHAIN |   |
+| --- | --- |
+| Diamond Proxy Contract Address | 0x314AA36352771307E942FaeD6d8dfB2398916E92 |
+| Verified Contract Address | 0xFC20482857782Ff1592C42d77b96e9d8698870F9 |
+| Exploerer Link | [Scroll Sepolia Blockscout verified Contract](https://sepolia-blockscout.scroll.io/address/0xFC20482857782Ff1592C42d77b96e9d8698870F9/contracts#address-tabs) |
 
-## NEON EVM DEV CHAIN:
-Diamond Proxy Contract Address: 0x9A1554a110A593b5C137643529FAA258a710245C
-Verified Contract Address:  0xd351cA594a02a6C555D2DCe3Ad6Ebd6b5003904f
-https://devnet.neonscan.org/address/0xd351cA594a02a6C555D2DCe3Ad6Ebd6b5003904f#contract
+| NEON EVM DEV CHAIN |   |
+| --- | --- |
+| Diamond Proxy Contract Address | 0x9A1554a110A593b5C137643529FAA258a710245C |
+| Verified Contract Address | 0xd351cA594a02a6C555D2DCe3Ad6Ebd6b5003904f |
+| Exploerer Link | [Neonscan verified Contract](https://devnet.neonscan.org/address/0xd351cA594a02a6C555D2DCe3Ad6Ebd6b5003904f#contract) |
+
 
 DRAFT V0.1 - 18-11-2023 / 17:43
 
