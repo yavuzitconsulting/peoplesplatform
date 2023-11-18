@@ -2,24 +2,87 @@
 <html lang="en">
 <head>
     <style>
-        .info{
+        body {
+            background-color: #1a1a1a; /* Dark background for the whole page */
+            color: #f0f0f0; /* Light text color for readability */
+            font-family: Arial, sans-serif; /* Modern, readable font */
+        }
+        .info {
             display: flex;
-    justify-content: center;
-    text-align: center;
-    background: wheat;
-    flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            background: #333; /* Darker shade for the info box */
+            flex-direction: column;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+        }
+        h1 {
+            color: #4CAF50; /* Light green color for headings */
+        }
+        ul {
+            text-align: left; /* Left-align the list for better readability */
+        }
+        ul.bigger li
+        {
+        font-size: large;
+        }
+        .info a{
+            color: wheat;
+        }
+        div.back{
+            font-size: large;
+            background-color: rgb(58, 64, 64);
+            border-radius: 10px;
+            width: 120px;
+            text-align: center;
+            font-style: bold;
+            color: white;
+        }
+        div.back a{
+            color: white;
+        }
+        div.back:hover{
+            background-color: rgba(160, 198, 200, 0.306);
+            cursor: pointer;
         }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>People's Picks</title>
 </head>
 <body> 
+    
+    <div class="back"><a href="https://www.caleidoscode.io">Back</a></div>
    <div class="info">
-    Our Chrome extension was created during EthIstanbul and has not yet been submitted to the Chrome Web Store. <br/>
-    But you can already participate by downloading the extension installer here! <br/>
-    <a href="peoples-choice-extender.crx">Click here to get the extension!</a>
+       <h1>Installing People's Choice Extender Chrome Extension</h1>
+       <div class="text">Since we are still in development, and the entire People's Platform Project was developed within the limited time-frame of <b>EthGlobal Istanbul</b> we were not able to publish the extension int he official Google Chrome Webstore. <br/>
+        Publishing extensions require a lengthy review, which sadly would not finish in time. <br/>
+    Thus, we decided to provide a short tutorial on how to install and use the extension.< <br/>
+    Thank you for your understanding!</div>
+    
+       <ul class="bigger">
+           <li><strong>Step 1:</strong> Clone or download the repository from <a href="https://github.com/yavuzitconsulting/peoplesplatform" target="_blank">GitHub</a>.</li>
+           <li><strong>Step 2:</strong> Locate the 'peoples_choice_extender' directory in the downloaded repository. This directory contains the unpacked extension.</li>
+           <li><strong>Step 3:</strong> Open Chrome and navigate to the Extensions page (Enter <b>chrome://extensions/</b> in the URL field of Google Chrome).</li>
+           <li><strong>Step 4:</strong> Enable 'Developer Mode' at the top right corner of the Extensions page.</li>
+           <li><strong>Step 5:</strong> Click on 'Load Unpacked' and select the <b>'peoples_choice_extender'</b> directory.</li>
+           <li><strong>Important:</strong> Ensure you have MetaMask installed and connected to your testnet with a test wallet.</li>
+       </ul>
+
+       <h1>FAQ</h1>
+       <div class="text">Participation is very simple! As a content creator, just add the hashtag "#peoplesplatform:[YOUR_WALLET_ADDRESS]" to your content!</div>
+       <div class="text">As a user, have metamask installed, and the People's Choice Extender extension!</div>
+    
+       <ul class="bigger">
+           <li><strong>How do i participate as a creator?</strong> Any content creator (at this moment on REDDIT and YOUTUBE) can add a specific hashtag to his content description.</li>
+           <li><strong>How does the extension work? </strong> The extension understands this hashtag, if it is detected, it injects UI elements into the social media content (like/dislike buttons).</li>
+           <li><strong>How do i use the extension? </strong> When contributing content is detected, you can vote by pressing the newly injected buttons, you can upvote or downvote the content and by proxy the creator who is registered automatically via the hashtag.</li>
+           <li><strong>How are the funds collected? </strong> Supporters can donate funds to the smart contract, the contract calculates the amount of funds to distribute to any creator based by his content upvotes and downvotes.</li>
+           <li><strong>How would i donate to the contract? </strong> The extension is visible in your chrome plugins page, you can open it and see a DONATE and a RECEIVE button.</li>
+           <li><strong>How do creators get their funds?</strong> Creators can use the same ui (the extension) and use the RECEIVE button to retrieve their funds once a months for the last passed month.</li>
+       </ul>
    </div>
 </body>
 </html>
