@@ -6,9 +6,10 @@ window.ethereum = window.ethereum || {};
 function sendMessageToContentScript(message) {
     window.postMessage({ type: "FROM_PAGE", customMessage: message }, "*");
 }
-// Example of sending a custom message to the content script
+
 function sendRefreshMessageToContentScript() {
     window.postMessage({ type: "PCE_SITE_NAVIGATED" }, "*");
+    window.postMessage({ type: "PCE_SITE_SCROLLED" }, "*");
 }
 
 // Example usage
@@ -22,17 +23,27 @@ window.addEventListener('message', async function(event) {
         if (event.source !== window) {
             throw new Error('Message source is not the same window.');
         }
+        let contentUrl = "";
+        let title = "";
         let connected = false;
         // Handling different message types
         switch (event.data.type) {
             case "PCE_UPVOTE_CONTENT":
                 console.log("Upvote message received:", event.data);
 
-                // Validate the URL in the message
-                if (!event.data.contentUrl || typeof event.data.contentUrl !== 'string') {
+                contentUrl = event.data.contentUrl;
+                title = event.data.title;
+                receiver = event.data.receiver;
+                // Validate the data in the message
+                if (!contentUrl || typeof contentUrl !== 'string') {
                     throw new Error('Invalid URL in the upvote message.');
                 }
-
+                if (!title || typeof title !== 'string') {
+                    throw new Error('Invalid Title in the upvote message.');
+                }
+                if (!receiver || typeof receiver !== 'string') {
+                    throw new Error('Invalid Receiver in the upvote message.');
+                }
                 connected = await checkIfMetaMaskWalletIsConnected();
                 if (!connected) {
                     await connectMetaMaskWallet();
@@ -41,15 +52,24 @@ window.addEventListener('message', async function(event) {
                     console.log("ETHERS WAS NOT FOUND");
                 }
 
-                await callContractFunctionForVote(event.data.contentUrl, true);
+                await callContractFunctionForVote(receiver, contentUrl, true, title);
                 break;
                 
             case "PCE_DOWNVOTE_CONTENT":
                 console.log("Downvote message received:", event.data);
+                contentUrl = event.data.contentUrl;
+                title = event.data.title;
+                receiver = event.data.receiver;
 
-                // Validate the URL in the message
-                if (!event.data.contentUrl || typeof event.data.contentUrl !== 'string') {
-                    throw new Error('Invalid URL in the downvote message.');
+                // Validate the data in the message
+                if (!contentUrl || typeof contentUrl !== 'string') {
+                    throw new Error('Invalid URL in the upvote message.');
+                }
+                if (!title || typeof title !== 'string') {
+                    throw new Error('Invalid Title in the upvote message.');
+                }
+                if (!receiver || typeof receiver !== 'string') {
+                    throw new Error('Invalid Receiver in the upvote message.');
                 }
 
                 connected = await checkIfMetaMaskWalletIsConnected();
@@ -60,14 +80,13 @@ window.addEventListener('message', async function(event) {
                     console.log("ETHERS WAS NOT FOUND");
                 }
 
-                await callContractFunctionForVote(event.data.contentUrl, false);
+                await callContractFunctionForVote(receiver, contentUrl, false, title);
                 break;
 
             default:
                 break;
         }
     } catch (error) {
-        console.error("Error in message event listener:", error.message);
         // Handle the error appropriately
     }
 });
@@ -77,10 +96,15 @@ window.addEventListener('message', async function(event) {
 
 
 
-
+//reaction or non-reaction to these listeners can be implemented
+//on a per platform basis
 window.navigation.addEventListener("navigate",(e)=> {
-    
-    console.log('christian debugs like this for some reason');
+    console.log('navigate event');
+    sendRefreshMessageToContentScript();
+});
+
+window.addEventListener("scroll", (e) => {
+    console.log('scroll event');
     sendRefreshMessageToContentScript();
 });
 
@@ -96,27 +120,5 @@ async function connectMetaMaskWallet() {
         await ethereum.request({ method: 'eth_requestAccounts' });
     } catch (error) {
         console.error('User denied account access', error);
-    }
-}
-
-async function callContractFunctionForVote(url, upvote) {
-    if (!ethereum.isMetaMask) {
-        console.error('MetaMask is not available');
-        return;
-    }
-
-
-    //dies here
-    const provider = provider = new ethers.BrowserProvider(window.ethereum);
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(contractAddress, contractABI, signer);
-
-    try {
-        const transaction = await contract.vote(url, upvote);
-        console.log('Transaction sent:', transaction.hash);
-        await transaction.wait();
-        console.log('Transaction confirmed');
-    } catch (error) {
-        console.error('Transaction failed:', error);
     }
 }

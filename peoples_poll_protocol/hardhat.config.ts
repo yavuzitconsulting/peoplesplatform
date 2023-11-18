@@ -44,7 +44,43 @@ const config: HardhatUserConfig = {
             count: 20,
             passphrase: "",
             },
-        }
+        },
+        chiado: {
+            url: "https://rpc.chiadochain.net",
+            gasPrice: 1000000000,
+            accounts: {
+                mnemonic: 'balcony over chase second wrap hospital film tongue recycle credit staff parent',
+                path: "m/44'/60'/0'/0",
+                initialIndex: 0,
+                count: 20,
+                passphrase: "",
+            }
+        },
+        scrollSepolia: {
+            url: "https://sepolia-rpc.scroll.io/" || "",
+            accounts: {
+                mnemonic: 'balcony over chase second wrap hospital film tongue recycle credit staff parent',
+                path: "m/44'/60'/0'/0",
+                initialIndex: 0,
+                count: 20,
+                passphrase: "",
+            }
+        },
+        neonlabs: {
+            url: 'https://devnet.neonevm.org',
+            accounts: {
+                mnemonic: 'balcony over chase second wrap hospital film tongue recycle credit staff parent',
+                path: "m/44'/60'/0'/0",
+                initialIndex: 0,
+                count: 20,
+                passphrase: "",
+            },
+            network_id: 245022926,
+            chainId: 245022926,
+            allowUnlimitedContractSize: true,
+            timeout: 1000000,
+            isFork: true
+          }
     }
 };
 export default config;
