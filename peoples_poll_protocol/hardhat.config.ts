@@ -1,4 +1,7 @@
 import {HardhatUserConfig} from 'hardhat/types';
+import 'hardhat-deploy';
+import 'hardhat-deploy-ethers';
+
 const config: HardhatUserConfig = {
     solidity: {
         version: "0.8.18",
@@ -10,6 +13,9 @@ const config: HardhatUserConfig = {
             },
             viaIR: true
         },
+    },
+    namedAccounts: {
+        deployer: 0,
     },
     defaultNetwork: "testnet",
     networks: {
