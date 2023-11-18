@@ -1,51 +1,39 @@
-
-const contractAddress = '0x...'; //tbd cg
-const contractABI = [/* ... */]; //tbd cg
-
-
 window.ethereum = window.ethereum || {};
 
 
-console.log('Injected script executed.');
 
-if (window.ethereum) {
-    console.log('window.ethereum is available');
-    window.postMessage({ type: "FROM_PAGE", text: "window.ethereum is available" }, "*");
-} else {
-    console.log('window.ethereum is not available');
-    window.postMessage({ type: "FROM_PAGE", text: "window.ethereum is not available" }, "*");
-}
-
+// Example of sending a custom message to the content script
 function sendMessageToContentScript(message) {
     window.postMessage({ type: "FROM_PAGE", customMessage: message }, "*");
 }
+// Example of sending a custom message to the content script
+function sendRefreshMessageToContentScript() {
+    window.postMessage({ type: "PCE_SITE_NAVIGATED" }, "*");
+}
 
-
+// Example usage
 sendMessageToContentScript("Hello from injected script!");
+
+
 
 window.addEventListener('message', async function(event) {
     try {
-        
+        // Validate the source of the message
         if (event.source !== window) {
             throw new Error('Message source is not the same window.');
         }
-
-        
+        let connected = false;
+        // Handling different message types
         switch (event.data.type) {
-            case "FROM_CONTENT":
-                console.log("Message received from content script:", event.data);
-                
-                break;
-
-            case "UPVOTE_CONTENT":
+            case "PCE_UPVOTE_CONTENT":
                 console.log("Upvote message received:", event.data);
 
-                
+                // Validate the URL in the message
                 if (!event.data.contentUrl || typeof event.data.contentUrl !== 'string') {
                     throw new Error('Invalid URL in the upvote message.');
                 }
 
-                const connected = await checkIfMetaMaskWalletIsConnected();
+                connected = await checkIfMetaMaskWalletIsConnected();
                 if (!connected) {
                     await connectMetaMaskWallet();
                 }
@@ -55,18 +43,46 @@ window.addEventListener('message', async function(event) {
 
                 await callContractFunctionForVote(event.data.contentUrl, true);
                 break;
+                
+            case "PCE_DOWNVOTE_CONTENT":
+                console.log("Downvote message received:", event.data);
+
+                // Validate the URL in the message
+                if (!event.data.contentUrl || typeof event.data.contentUrl !== 'string') {
+                    throw new Error('Invalid URL in the downvote message.');
+                }
+
+                connected = await checkIfMetaMaskWalletIsConnected();
+                if (!connected) {
+                    await connectMetaMaskWallet();
+                }
+                if(!ethers){
+                    console.log("ETHERS WAS NOT FOUND");
+                }
+
+                await callContractFunctionForVote(event.data.contentUrl, false);
+                break;
 
             default:
-                console.log("Unhandled message type:", event.data.type);
+                break;
         }
     } catch (error) {
         console.error("Error in message event listener:", error.message);
-        
+        // Handle the error appropriately
     }
 });
 
 
 
+
+
+
+
+window.navigation.addEventListener("navigate",(e)=> {
+    
+    console.log('christian debugs like this for some reason');
+    sendRefreshMessageToContentScript();
+});
 
 
 
