@@ -27,11 +27,7 @@
 | Exploerer Link | [Neonscan verified Contract](https://devnet.neonscan.org/address/0xd351cA594a02a6C555D2DCe3Ad6Ebd6b5003904f#contract) |
 
 
-DRAFT V0.1 - 18-11-2023 / 17:43
-
-Revive the Internet with the People's Platform Project! Our mission: to reclaim the social media landscape from advertiser domination. This project enables individuals to freely promote and support their favorite content and creators. It's a space where you can monetize your creative work without the restrictions of advertiser censorship. 
-
-
+**Revive the Internet with the People's Platform Project! Our mission: to reclaim the social media landscape from advertiser domination. This project enables individuals to freely promote and support their favorite content and creators. It's a space where you can monetize your creative work without the restrictions of advertiser censorship.**
 
 # Problem Statement
 Social media today is dominated by advertisers, resulting in content that's tailored to their interests rather than the community's. This limits free speech and leads to a flood of simple, low-quality content. Large companies prioritize ad revenue over open and diverse content.
@@ -51,14 +47,28 @@ A "DAO pool" may be introduced for any administrative work such as taking over t
 
 **People's Pics Aggregator** (Vanilla Html Website): To override the original social media content sorting, we're developing a website that displays content based on the number of upvotes, giving more upvoted content higher visibility.
 
-
 **People's Picker Api** (Nodejs Rest Api): Provides sorted and paginated content from different chains to the WebApp
 
-Open Topics
-Automatic Payout Mechanism: We're exploring options for efficient and fair payout mechanisms, aiming to avoid censorship by large companies.
-An API for the extension was suggested and should be discussed.
-We are still discussing Tokenomics, a way to distribute fragmental units of the donation pool back to users as a "thank you" for participation, this can be done because we can only use funds that are distributable on the amount of predefined fragments (months), so there can be some leftover that can be utilized for that and also for DAU actions.
-We are considering handing out Tokens or NFTs based on user and creator distributions which can be utilized in future tokenomics as an incentive.
+# Howto to start
 
-Join the Revolution!
+- Clone the repo and add the extension to Chrome. Follow the description @ [People's Choice Extender Doc](https://www.caleidoscode.io/extension.html) and connect your wallet on your prefered chain (Chiado, Scroll Sepolia, Neon Devnet)
+- Add your prefered chain wallet address to your content on Youtube or Reddit
+- Use the extension to donate some funds
+- Use the voting buttons on Youtube or Reddit
+- Receive your share
+
+# What are the constraints
+- Donations are distributed over the choosen months starting with the next month
+- Votes are accumulated within a month
+- The share can only received for past months and only once.
+
+# Open Topics
+- Many....
+- DAO
+- Automatic Payout Mechanism: We're exploring options for efficient and fair payout mechanisms, aiming to avoid censorship by large companies.
+- An API for the extension was suggested and should be discussed.
+- We are still discussing Tokenomics, a way to distribute fragmental units of the donation pool back to users as a "thank you" for participation, this can be done because we can only use funds that are distributable on the amount of predefined fragments (months), so there can be some leftover that can be utilized for that and also for DAU actions.
+- We are considering handing out Tokens or NFTs based on user and creator distributions which can be utilized in future tokenomics as an incentive.
+
+# Join the Revolution!
 Our project seeks to break the chains of advertiser-driven social media content and bring back true freedom of expression. By decentralizing the voting process, we aim to create a more community-driven and tailored social media experience. Join us in reshaping the future of social media and supporting free speech! 🚀🌐
