@@ -1,16 +1,32 @@
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
-    background-color: #423f3f;
+    background-color: #2f2f2f;
 }
 
-.extensioninfo{
+.logo {
+    position: fixed;
+    bottom: 10px;
+    margin-left: 70%;
+}
+
+.logo img {
+    width: 40%;
+    position: relative;
+    right: -45%;
+}
+
+.extensioninfo {
     background: white;
-    min-width: 100vw;
-    position: absolute;
+    border-radius: 5px;
     left: 0px;
     text-align: center;
-    top: 10px;
+    padding: 5px;
+    font-family: 'Inclusive Sans', sans-serif;
+}
+
+.extensioninfo a {
+    color: blue;
 }
 
 table {
@@ -21,6 +37,7 @@ table {
 }
 .table-title{
 color: antiquewhite;
+font-size: x-large;
 }
 
 .vote-icon.up {
@@ -36,7 +53,7 @@ color: antiquewhite;
 }
 
 td {
-    background-color: #423f3f;
+    background-color: #2f2f2f;
 }
 
 tr.top-row,
@@ -88,6 +105,7 @@ tr.subtext-row td {
     display: inline-block;
     width: 46px;
     height: 20px;
+    top: 4px;
 }
 
 .switch input {
