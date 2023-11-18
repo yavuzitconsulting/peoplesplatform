@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let activeChain = getActiveChainFromUrl();
     const itemsPerPage = 30;
 
+
     function updateTable() {
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
@@ -64,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const apiUrl = filterKeyword ?
             `https://www.caleidoscode.io/api/aggregate?filter=${filterKeyword}&chain=${chain}&p=${currentPage}` :
             `https://www.caleidoscode.io/api/aggregate?chain=${chain}&p=${currentPage}`;
-
+    
         fetch(apiUrl)
             .then(response => response.json())
             .then(newData => {
@@ -73,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 updateUrl();
             })
             .catch(error => console.error('Error fetching data from API:', error));
-    }
+    }    
 
     function getCurrentPageFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -82,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function getActiveChainFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('chain') || 'chiado'; // Default to 'chiado' if no chain is specified
+        return urlParams.get('chain') || '501984';
     }
 
     function updateUrl() {
