@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let data = [];
     let sortByTrend = false;
     let currentPage = getCurrentPageFromUrl();
+    let activeChain = getActiveChainFromUrl();
     const itemsPerPage = 30;
 
     function updateTable() {
@@ -36,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <span class="vote-icon ${voteClass}">
                         ${item.totalVotes > 0 ? '⮝' : ''}
                         ${item.totalVotes < 0 ? '⮟' : ''}
+                        ${item.totalVotes === 0 ? '⮞' : ''}
                     </span>
                 </td>
                 <td class="title">
@@ -45,17 +47,32 @@ document.addEventListener('DOMContentLoaded', function () {
                 </td>
             `;
             tbody.appendChild(row);
+
+            const subtextRow = document.createElement('tr');
+            subtextRow.className = 'subtext-row';
+            subtextRow.setAttribute('associated-id', startIndex + index);
+            subtextRow.innerHTML = `
+                <td class="empty" colspan="2"></td>
+                <td class="subtext" colspan="2">Votes: ⮝ ${item.upvotes} | ⮟ ${item.downvotes}</td>
+            `;
+            tbody.appendChild(subtextRow);
         });
+
     }
 
-    function fetchDataWithFilter(filterKeyword) {
-        fetch(`http://localhost:3000/aggregate?filter=${filterKeyword}`)
-            .then((response) => response.json())
-            .then((result) => {
-                data = result;
+    function fetchDataWithFilterAndChain(filterKeyword, chain) {
+        const apiUrl = filterKeyword ?
+            `http://localhost:3000/aggregate?filter=${filterKeyword}&chain=${chain}&p=${currentPage}` :
+            `http://localhost:3000/aggregate?chain=${chain}&p=${currentPage}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(newData => {
+                data = newData;
                 updateTable();
+                updateUrl();
             })
-            .catch((error) => console.error('Error fetching data:', error));
+            .catch(error => console.error('Error fetching data from API:', error));
     }
 
     function getCurrentPageFromUrl() {
@@ -63,16 +80,21 @@ document.addEventListener('DOMContentLoaded', function () {
         return parseInt(urlParams.get('p')) || 1;
     }
 
+    function getActiveChainFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('chain') || 'chiado'; // Default to 'chiado' if no chain is specified
+    }
+
     function updateUrl() {
-        window.history.replaceState({}, document.title, `?p=${currentPage}`);
+        window.history.replaceState({}, document.title, `?chain=${activeChain}&p=${currentPage}`);
     }
 
     window.filterTableByHost = function (host) {
-        fetchDataWithFilter(host);
+        fetchDataWithFilterAndChain(host, activeChain);
     };
 
     window.clearFilter = function () {
-        fetchDataWithFilter('');
+        fetchDataWithFilterAndChain(null, activeChain);
     };
 
     window.toggleSort = function () {
@@ -80,6 +102,25 @@ document.addEventListener('DOMContentLoaded', function () {
         updateTable();
     };
 
-    fetchDataWithFilter('');
+    window.goToPrevPage = function () {
+        if (currentPage > 1) {
+            currentPage--;
+            fetchDataWithFilterAndChain(null, activeChain);
+        }
+    };
 
+    window.goToNextPage = function () {
+        currentPage++;
+        fetchDataWithFilterAndChain(null, activeChain);
+    };
+
+    // Initial fetch
+    fetch(`http://localhost:3000/aggregate?chain=${activeChain}&p=${currentPage}`)
+        .then(response => response.json())
+        .then(newData => {
+            data = newData;
+            updateTable();
+            updateUrl();
+        })
+        .catch(error => console.error('Error fetching data from API:', error));
 });
