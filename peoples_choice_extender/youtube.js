@@ -76,6 +76,45 @@ function injectCustomDiv() {
                     background-color: #f0f0f0; /* Hover background color */
                     border-color: #d0d0d0; /* Hover border color */
                   }
+
+                  
+             @keyframes pce-ext-jump {  
+              25% {
+                transform: translateY(0);
+              }
+              
+              50% {
+                transform: translateY(-0.5em);
+              }
+              
+              75% {
+                transform: translateY(0);
+              }
+            }
+            
+              #pce-ext-inject .typing {
+                display: inline-flex;
+                height: 1rem;
+                width: min-content;
+                align-items: flex-end;
+              }
+              
+              #pce-ext-inject .typing span {
+                width: 0.5em;
+                height: 0.5em;
+                background: #333;
+                border-radius: 50%;
+                margin: 0 0.1em;
+                animation: pce-ext-jump 1500ms infinite;
+              }
+              
+              #pce-ext-inject .typing span:nth-child(2) {
+                animation-delay: 250ms;
+              }
+              
+              #pce-ext-inject .typing span:nth-child(3) {
+                animation-delay: 500ms;
+              }
                 </style>
               `;
 
