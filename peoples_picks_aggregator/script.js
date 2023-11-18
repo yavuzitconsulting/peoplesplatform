@@ -62,8 +62,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function fetchDataWithFilterAndChain(filterKeyword, chain) {
         const apiUrl = filterKeyword ?
-            `http://localhost:3000/aggregate?filter=${filterKeyword}&chain=${chain}&p=${currentPage}` :
-            `http://localhost:3000/aggregate?chain=${chain}&p=${currentPage}`;
+            `https://www.caleidoscode.io/api/aggregate?filter=${filterKeyword}&chain=${chain}&p=${currentPage}` :
+            `https://www.caleidoscode.io/api/aggregate?chain=${chain}&p=${currentPage}`;
 
         fetch(apiUrl)
             .then(response => response.json())
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // Initial fetch
-    fetch(`http://localhost:3000/aggregate?chain=${activeChain}&p=${currentPage}`)
+    fetch(`https://www.caleidoscode.io/api/aggregate?chain=${activeChain}&p=${currentPage}`)
         .then(response => response.json())
         .then(newData => {
             data = newData;
