@@ -12,8 +12,8 @@ Content creators have to obey censorship and big tech rules to earn a living, an
 
 Solution
 Our project aims to revolutionize the social media landscape by giving the power back to the community. We provide a solution that enables users to independently upvote and downvote content on various social media platforms using blockchain technology. 
-The up/downvotes show community interest and trends, they are blockchain transactions (0 ETH).
-Other users are "donators" that can contribute to a "supporter pool", from this pool, creators are paid out, a smart contract calculates a fair share over-time, based on up/downvote ratios (community interest).
+Users up/downvotes contribute to show community interest and trends, they are not monetary transactions, but require gas.
+Other users can be "contributors (donators)" that can contribute to a "supporter pool", from this pool, creators are paid out, a smart contract calculates a fair share over-time, based on up/downvote ratios (community interest).
 This allows content creators to manage their content openly and sustainably. We introduce a website that supersedes the original social media sorting algorithm, reflecting the decentralized voting system's impact on content quality.
 
 Key Components
@@ -31,6 +31,7 @@ Automatic Payout: One challenge is implementing the automatic payout system. Opt
 
 Open Topics
 Automatic Payout Mechanism: We're exploring options for efficient and fair payout mechanisms, aiming to avoid censorship by large companies.
+An API for the extension was suggested and should be discussed.
 
 Join the Revolution!
 Our project seeks to break the chains of advertiser-driven social media content and bring back true freedom of expression. By decentralizing the voting process, we aim to create a more community-driven and tailored social media experience. Join us in reshaping the future of social media and supporting free speech! 🚀🌐
