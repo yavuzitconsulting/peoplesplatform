@@ -1,15 +1,25 @@
-// SPDX-License-Identifier: GPL-3.0
+//SPDX-License-Identifier: MIT
 
-pragma solidity >=0.8.2 <0.9.0;
+pragma solidity ^0.8.20;
+import "@openzeppelin/contracts/utils/Address.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
+//import "hardhat/console.sol";
+
+
+import {PeoplesPlatformStorage,StorageHandler} from "./PeoplesPlatformStorage.sol";
+import {UsingDiamondOwner} from "hardhat-deploy/solc_0.8/diamond/UsingDiamondOwner.sol";
+
 
 /**
- * @title Storage
- * @dev Store & retrieve value in a variable
- * @custom:dev-run-script ./scripts/deploy_with_ethers.ts
+ * @dev Implementation of https://eips.ethereum.org/EIPS/eip-721[ERC721] Non-Fungible Token Standard, including
+ * the Metadata extension, but not including the Enumerable extension, which is available separately as
+ * {ERC721Enumerable}.
  */
-contract Storage {
+contract PeoplesPlatformFacet is StorageHandler, UsingDiamondOwner {
+    using Address for address;
+    using Strings for uint256;
 
-    event Voted(string url,bool up);
+    event Voted(string url,bool up,string title);
 
     mapping(uint32 => uint32) _monthDonationBuckets; 
     mapping(uint32 => address[]) _monthIdAddresses;
@@ -17,7 +27,11 @@ contract Storage {
     mapping(uint256 => bool) _monthAddressHasVotes;
     mapping(uint256 => bool) _monthAddressHasTransfered;
 
- 
+    function setDonatingActive() public onlyOwner {
+        PeoplesPlatformStorage storage pp = pp();
+        pp._isDonatingActive = true;
+    }
+
     function donate(uint16 months,uint16 currentMonth,uint16 currentYear) public payable {
         require(months < 25, "Only upto 24 months is supported");
         require(msg.value % months == 0, "Payed amount must be devidable by the distributed months");
@@ -39,7 +53,7 @@ contract Storage {
 
     }
 
-    function vote(bool up,address receiver, string memory url,uint16 currentMonth,uint16 currentYear ) public{
+    function vote(string memory url, bool up,address receiver,string memory title, uint16 currentMonth,uint16 currentYear ) public{
         uint32 monthId = uint32(currentYear) * 100 + currentMonth;
         uint256 monthAddressId = (uint256(uint160(receiver)) << 20) +monthId;
         if(!_monthAddressHasVotes[monthAddressId]){
@@ -54,10 +68,11 @@ contract Storage {
             _monthAddresIdVoteValues[monthAddressId]--;
         }
 
-        emit Voted(url, up);
+        emit Voted(url, up,title);
     }
 
     function transfer(address payable to, uint16 month, uint16 year,uint16 currentMonth,uint16 currentYear) public {
+       
         uint32 curMonthId = uint32(currentYear) * 100 + currentMonth;
         uint32 monthId = uint32(year) * 100 + month;
         require(monthId < curMonthId,"Your can only transfer your share for month before the current one");
