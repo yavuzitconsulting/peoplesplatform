@@ -1,46 +1,45 @@
 {
-  "manifest_version": 3,
-  "name": "Peoples Choice Extender",
-  "description": "Enabling blockchain-based monetization to free creators from censorship.",
-  "version": "0.1 alpha",
-  "author": "Team CryptNG",
-  "author_url": "https://cryptng.com",
-  "permissions": ["activeTab", "scripting", "tabs"],
-  "content_scripts": [
+    "manifest_version": 3,
+    "name": "Peoples Choice Extender",
+    "version": "1.0",
+    "permissions": ["activeTab", "scripting","tabs"],
+    "content_scripts": [
       {
-          "matches": ["*://www.youtube.com/*"],
-          "js": ["youtube.js"]
+        "matches": ["*://www.youtube.com/*"],
+        "js": ["youtube.js"]
       },
       {
-          "matches": ["*://www.reddit.com/*"],
-          "js": ["reddit.js"]
+        "matches": ["*://www.reddit.com/*"],
+        "js": ["reddit.js"]
       },
       {
-          "matches": ["<all_urls>"],
-          "js": ["generalScriptInjector.js"]
+        "matches": ["<all_urls>"],
+        "js": ["generalScriptInjector.js"]
       }
-  ],
-  "action": {
+    ],
+    "action": {
       "default_popup": "popup.html",
       "default_icon": {
-          "16": "img/16.png",
-          "48": "img/48.png",
-          "64": "img/64.png",
-          "128": "img/128.png"
+        "16": "img/16.png",
+        "48": "img/48.png",
+        "64": "img/64.png",
+        "128": "img/128.png"
       }
-  },
-  "web_accessible_resources": [
-      {
+    },
+    "web_accessible_resources": [
+        {
           "resources": ["contentPageInjectedScript.js"],
           "matches": ["<all_urls>"]
-      },
-      {
+        },
+        {
           "resources": ["ethers.min-6.8.1.js"],
           "matches": ["<all_urls>"]
-      },
-      {
+        },
+        {
           "resources": ["generalFunctionalityInjectedScript.js"],
           "matches": ["<all_urls>"]
-      }
-  ]
-}
+        }
+      ]
+      
+  }
+  

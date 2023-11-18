@@ -9,20 +9,28 @@
 <body> 
     <div class="extensioninfo-placeholder">&nbsp;</div>
    
-    <div class="extensioninfo">Power to the community! Support your favorite Creators! <a href="extension.html">Get our "People's Choice Extender" extension here</a>.</div>
+    <div class="extensioninfo">Power to the People! Support your favorite Creators! <a href="extension.html">Get our "People's Choice Extender" extension here</a>.</div>
     <table id="dataTable">  
         <thead>
             <tr>
                 <th></th>
                 <th></th>
-                <th class="table-title">People's Picks Aggregator</th> 
+                <th class="table-title" onclick="clearFilter()">People's Picks Aggregator
+                    <label class="switch">
+                    <input type="checkbox" onclick="toggleSort()">
+                    <span class="slider"></span>
+                </label></th> 
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <!-- Table  -->
+            <!-- Table broskis -->
         </tbody>
     </table>
+    <div id="pagination-controls">
+        <button onclick="goToPrevPage()">←</button>
+        <button onclick="goToNextPage()">→</button>
+    </div>
 
     <script src="script.js"></script>
 </body>

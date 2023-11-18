@@ -1,6 +1,6 @@
 # people's platform project
 
-DRAFT V0.1 - 17-11-2023 / 01:45
+DRAFT V0.1 - 18-11-2023 / 17:43
 
 Revive the Internet with the People's Platform Project! Our mission: to reclaim the social media landscape from advertiser domination. This project enables individuals to freely promote and support their favorite content and creators. It's a space where you can monetize your creative work without the restrictions of advertiser censorship. 
 
@@ -23,6 +23,9 @@ Smart Contract: The planned smart contract includes a "supporter pool" for colle
 A "dau pool" may be introduced for any administrative work such as taking over transaction costs for creator payouts and at some point,possibly rewarding the users with tokens / crypto rewards.
 
 Website: To override the original social media content sorting, we're developing a website that displays content based on the number of upvotes, giving more upvoted content higher visibility.
+
+
+Api: Provides sorted and paginated content from different chains to the WebApp
 
 Automatic Payout: One challenge is implementing the automatic payout system. Options include using an automated trigger, or triggering the action after a set time passed whenever an up or downvote is issues, transaction costs MUST not be taken from the user in that case.
 

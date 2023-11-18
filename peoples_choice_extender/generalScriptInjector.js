@@ -33,8 +33,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     
     
     if (message.type === "PCE_RECEIVE_MESSAGE") {
+      let months = message.months;
         // Now, you can post this message to the webpage if needed
-        window.postMessage({ type: "PCE_RECEIVE_MESSAGE" }, "*");
+        window.postMessage({ type: "PCE_RECEIVE_MESSAGE", months: months }, "*");
       }
   });
   
