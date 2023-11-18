@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import { parseUnits } from 'ethers';
 
 import {ethers, deployments, getNamedAccounts} from 'hardhat';
 
