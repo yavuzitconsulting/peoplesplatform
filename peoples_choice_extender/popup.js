@@ -30,7 +30,8 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 //to generalScriptInjector
 function sendReceiveMessageToInjectedScript() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, {type: "PCE_RECEIVE_MESSAGE"});
+      //hardcode 1 month for now
+      chrome.tabs.sendMessage(tabs[0].id, {type: "PCE_RECEIVE_MESSAGE", months: 1});
   });
 }
 

@@ -154,14 +154,15 @@ window.addEventListener('message', async function(event) {
         // Handling different message types
         switch (event.data.type) {
             case "PCE_DONATE_MESSAGE":
-                const months = event.data.months;
-                const amount = event.data.amount;
-                callContractFunctionForDonate(amount,months);
+                let dmonths = event.data.months;
+                let damount = event.data.amount;
+                callContractFunctionForDonate(damount,dmonths);
                 break;
 
             case "PCE_RECEIVE_MESSAGE":
-                console.log("RECEIVE Message received from content script:", event.data);
-                break;
+              let tmonths = event.data.months;
+              callContractFunctionForReceive(tmonths);
+              break;
             default:
                 break;
         }
@@ -213,25 +214,58 @@ async function callContractFunctionForDonate(amount, months) {
 }
 
 
+async function callContractFunctionForReceive(months) {
+  if (!ethereum.isMetaMask) {
+      console.error('MetaMask is not available');
+      return;
+  }
 
-async function callContractFunctionForReceive() {
-    if (!ethereum.isMetaMask) {
-        console.error('MetaMask is not available');
-        return;
-    }
 
+  //dies here
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner();
+  const contract = new ethers.Contract(contractAddress, contractABI, signer);
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth() + 1; 
+  const receiver = await signer.getAddress();
 
-    //dies here
-    const provider = provider = new ethers.BrowserProvider(window.ethereum);
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(contractAddress, contractABI, signer);
-
-    try {
-        const transaction = await contract.vote(url, upvote);
-        console.log('Transaction sent:', transaction.hash);
-        await transaction.wait();
-        console.log('Transaction confirmed');
-    } catch (error) {
-        console.error('Transaction failed:', error);
-    }
+  try {
+      const transaction = await contract.transfer(receiver,currentMonth, currentYear,currentMonth, 2024);
+      console.log('Transaction sent:', transaction.hash);
+      await transaction.wait();
+      console.log('Transaction confirmed');
+  } catch (error) {
+      console.error('Transaction failed:', error);
+  }
 }
+
+
+
+async function callContractFunctionForVote(receiver, url, upvote, title) {
+  if (!ethereum.isMetaMask) {
+      console.error('MetaMask is not available');
+      return;
+  }
+
+
+  //dies here
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner();
+  const contract = new ethers.Contract(contractAddress, contractABI, signer);
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth() + 1; 
+
+
+  try {
+      const transaction = await contract.vote(url, upvote, receiver, title, currentMonth, currentYear);
+      console.log('Transaction sent:', transaction.hash);
+      await transaction.wait();
+      console.log('Transaction confirmed');
+  } catch (error) {
+      console.error('Transaction failed:', error);
+  }
+}
+
+
