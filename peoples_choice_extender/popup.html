@@ -1,8 +1,120 @@
+
 <!DOCTYPE html>
-<html>
-  <head><title>Connect to MetaMask</title></head>
-  <body>
-    <button id="connectButton">Connect to MetaMask</button>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People's Choice Extender</title>
+    <style>
+      div.title{
+        font-size: medium;
+      }
+      body {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        width: 200px;
+        height: 300px;
+    }
+    .button-container{      
+      padding-top: 15%;
+    }
+    .button-container button {
+        background-color: #555;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        width: 165px;
+        cursor: pointer;
+        margin-top: 15px;
+    }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: #333;
+        flex-direction: column;
+    }
+    #donationOptions {
+        width: 165px;
+        padding: 10px;
+        margin: 10px;
+        font-size: large;
+    }
+    .modalmenu-back{
+      position: fixed;
+    height: 1rem;
+    width: 1rem;
+    top: 0.5rem;
+    border-radius: 5px;
+    border: white solid 1px;
+    line-height: 1.5;
+    cursor: pointer;
+    }
+    .modalmenu-back:hover{
+      background: rgba(255, 255, 255, 0.205);
+    }
+
+    label{
+      font-size: large;
+    }
+
+    input{
+      
+    height: 2rem;
+    font-size: large;
+    width: 160px;
+    }
+
+    .donateinput{
+      margin-top:10px;
+    }
+    </style>
+</head>
+<body>
+  <div class="title">People's Choice Extender</div>
+    <div class="button-container">
+        <button id="donateButton">Donate</button>
+        <button id="receiveButton">Receive</button>
+    </div>
+    <div id="donationModal" class="modal">
+      <div class="modalmenu-back" id="modalback"><<</div>
+      <div class="button-container">
+        <select id="donationOptions">
+            <option value="1">1 Month</option>
+            <option value="3">3 Months</option>
+            <option value="6">6 Months</option>
+            <option value="8">8 Months</option>
+            <option value="10">10 Months</option>
+            <option value="12">12 Months</option>
+            <option value="14">14 Months</option>
+            <option value="18">18 Months</option>
+            <option value="20">20 Months</option>
+            <option value="24">24 Months</option>
+        </select>
+        <div class="donateinput">
+          <label for="donateAmountPerMonth">Monthly Amount</label>
+        <input type="number" id="donateAmountPerMonth" value="0.01" step="0.001">
+        </div>
+        <div class="donateinput">
+          <label for="calculatedSumDonation">Total Donation:</label>
+          <input type="number" id="calculatedSumDonation" step="0.001" readonly></div>
+        
+        <button id="donateNowButton">Donate Now</button>
+      </div>
+    </div>
     <script src="popup.js"></script>
-  </body>
+</body>
+
 </html>

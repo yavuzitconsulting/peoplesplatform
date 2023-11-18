@@ -4,6 +4,15 @@ body {
     background-color: #423f3f;
 }
 
+.extensioninfo{
+    background: white;
+    min-width: 100vw;
+    position: absolute;
+    left: 0px;
+    text-align: center;
+    top: 10px;
+}
+
 table {
     width: auto;
     margin-top: 10px;
