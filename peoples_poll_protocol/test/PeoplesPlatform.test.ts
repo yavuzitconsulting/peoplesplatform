@@ -18,9 +18,9 @@ describe("PeoplesPlatform contract", function() {
         console.log('owner',owner.address);
         console.log('address1',address1.address);
         console.log('address2',address2.address);
-        console.log('owner',owner );
-        console.log('address1',address1.privateKey );
-        console.log('address2',address2.privateKey );
+        console.log('owner','0x30d85c181175c7cb84695dc5ebcd7a87ddc04be397a3d6140cfd11a0412d0f7d' );
+        console.log('address1','0x8d11cfcf6fec322ece61f1f007f838bf6ca70eee49cd8d4349d54b22b10b6b74' );
+        console.log('address2','0xd5944d5ee009a90c109c509f2ab597816234c9c528565ee7d10eab3288bf7ffe' );
         const deployment = await deployments.fixture(["PeoplesPlatform"]);
         contractAddress=deployment.PeoplesPlatform_DiamondProxy.address;
         peoplesPlatformContract = await hre.ethers.getContractAt("PeoplesPlatformFacet",contractAddress);

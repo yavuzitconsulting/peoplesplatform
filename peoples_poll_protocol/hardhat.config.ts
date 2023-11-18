@@ -6,7 +6,7 @@ require("@nomicfoundation/hardhat-chai-matchers");
 
 const config: HardhatUserConfig = {
     solidity: {
-        version: "0.8.20",
+        version: "0.8.10",
         settings: {
             optimizer: {
                 enabled: true,
@@ -56,7 +56,7 @@ const config: HardhatUserConfig = {
                 passphrase: "",
             }
         },
-        scrollSepolia: {
+        scroll: {
             url: "https://sepolia-rpc.scroll.io/" || "",
             accounts: {
                 mnemonic: 'balcony over chase second wrap hospital film tongue recycle credit staff parent',
@@ -80,7 +80,33 @@ const config: HardhatUserConfig = {
             allowUnlimitedContractSize: true,
             timeout: 1000000,
             isFork: true
+          },
+          'base-goerli': {
+            url: 'https://goerli.base.org',
+            accounts: {
+                mnemonic: 'balcony over chase second wrap hospital film tongue recycle credit staff parent',
+                path: "m/44'/60'/0'/0",
+                initialIndex: 0,
+                count: 20,
+                passphrase: "",
+            },
+            gasPrice: 1000000000,
           }
-    }
+    },
+    etherscan: {
+        apiKey: {
+            scroll: 'VGT2V589VNFQ4CFKJKYR7VW8XPC3WIACCW',
+        },
+        customChains: [
+            {
+            network: 'scroll',
+            chainId: 534351,
+            urls: {
+                apiURL: 'https://sepolia-blockscout.scroll.io/api',
+                browserURL: 'https://sepolia-blockscout.scroll.io/',
+            },
+            },
+        ],
+    },
 };
 export default config;
