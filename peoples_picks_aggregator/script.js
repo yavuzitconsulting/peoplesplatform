@@ -46,11 +46,16 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
             tbody.appendChild(row);
         });
-
     }
 
     function fetchDataWithFilter(filterKeyword) {
-        //TODO: Add filter functionality
+        fetch(`http://localhost:3000/aggregate?filter=${filterKeyword}`)
+            .then((response) => response.json())
+            .then((result) => {
+                data = result;
+                updateTable();
+            })
+            .catch((error) => console.error('Error fetching data:', error));
     }
 
     function getCurrentPageFromUrl() {
@@ -63,11 +68,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     window.filterTableByHost = function (host) {
- //TODO: Add filter functionality
+        fetchDataWithFilter(host);
     };
 
     window.clearFilter = function () {
-//TODO: Add filter functionality
+        fetchDataWithFilter('');
     };
 
     window.toggleSort = function () {
@@ -75,6 +80,6 @@ document.addEventListener('DOMContentLoaded', function () {
         updateTable();
     };
 
-//TODO: Add filter functionality
+    fetchDataWithFilter('');
 
 });
