@@ -5,34 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>People's Choice Extender</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
     <style>
       div.title{
         font-size: medium;
       }
       body {
-        background-color: #333;
+        background-color: black;
         color: white;
         text-align: center;
         font-family: Arial, sans-serif;
         width: 200px;
         height: 300px;
     }
+    .logo{
+      
+    }
     .button-container{      
-      padding-top: 15%;
+      padding-top: 10px;
     }
     .button-container button {
-        background-color: #555;
-        border: none;
-        color: white;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        width: 165px;
-        cursor: pointer;
-        margin-top: 15px;
+      background: linear-gradient(165deg, rgba(8,103,219,1) 0%, rgba(30,47,166,1) 56%, rgba(36,236,250,1) 92%, rgba(255,255,255,1) 100%);
+      border-radius: 10px;
+      border: 1px solid #23cbeb;
+      color: #c0e5fe;
+      font-family: 'Inclusive Sans', sans-serif;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      width: 165px;
+      cursor: pointer;
+      margin-bottom: 15px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .button-container button:hover{
+      background: linear-gradient(165deg, rgb(8, 93, 197) 0%, rgb(24, 37, 139) 56%, rgb(32, 212, 225) 92%, rgba(255,255,255,1) 100%);
+      transform: scale(1.05);
     }
     .modal {
         display: none;
@@ -51,6 +65,8 @@
         padding: 10px;
         margin: 10px;
         font-size: large;
+        border-radius: 10px;
+
     }
     .modalmenu-back{
       position: fixed;
@@ -75,6 +91,8 @@
     height: 2rem;
     font-size: large;
     width: 160px;
+    border-radius: 10px;
+    padding-left: 10px;
     }
 
     .donateinput{
@@ -83,7 +101,6 @@
     </style>
 </head>
 <body>
-  <div class="title">People's Choice Extender</div>
     <div class="button-container">
         <button id="donateButton">Donate</button>
         <button id="receiveButton">Receive</button>
@@ -114,6 +131,7 @@
         <button id="donateNowButton">Donate Now</button>
       </div>
     </div>
+    <div class="logo"><img width="100%" src="img/PeoplesPlatformLogo_Twisted_extension.png"/></div>
     <script src="popup.js"></script>
 </body>
 
