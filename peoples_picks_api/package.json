@@ -1,0 +1,14 @@
+{
+    "name": "express-api",
+    "version": "1.0.0",
+    "description": "Simple Express API",
+    "main": "start.js",
+    "scripts": {
+        "start": "node start.js"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "ethers": "^6.8.1",
+        "express": "^4.17.1"
+    }
+}
