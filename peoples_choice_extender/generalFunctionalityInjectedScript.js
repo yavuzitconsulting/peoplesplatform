@@ -130,7 +130,7 @@ const contractABI = [
   let contractAddressMapping = 
   
     [
-      {"contractAddress":"0x188C8d37fb966713CbDc7cCc1A6ed3da060FFac3", "chainId": 51984},
+      {"contractAddress":"0x188C8d37fb966713CbDc7cCc1A6ed3da060FFac3", "chainId": 501984},
       {"contractAddress":"TBD", "chainId": 1},
       {"contractAddress":"TBD", "chainId": 2},
       {"contractAddress":"TBD", "chainId": 3},
@@ -152,11 +152,12 @@ const contractABI = [
 
   
   // Get the current chain ID from MetaMask
-  const chainId = (await provider.getNetwork()).chainId;
+  const chainId = Number((await provider.getNetwork()).chainId);
 
   // Find the contract address corresponding to the current chain ID
   const mapping = contractAddressMapping.find(m => m.chainId === chainId);
   if (!mapping) {
+    console.log('chainid not found in mapping: '+chainId);
     throw new Error(`Contract address not found for chain ID ${chainId}`);
   }
 
@@ -274,6 +275,13 @@ async function callContractFunctionForReceive(months) {
 
 
 async function callContractFunctionForVote(receiver, url, upvote, title) {
+
+  //some ui behavior
+
+
+
+
+  //
   if (!ethereum.isMetaMask) {
       console.error('MetaMask is not available');
       return;
