@@ -6,7 +6,7 @@ pragma solidity ^0.8.18;
  * @dev Store & retrieve value in a variable
  * @custom:dev-run-script ./scripts/deploy_with_ethers.ts
  */
-contract Storage {
+contract PeoplesPlatform {
 
     event Voted(string url,bool up);
 
