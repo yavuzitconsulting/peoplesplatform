@@ -1,4 +1,14 @@
 # people's platform project
+PLEASE NOTE: 
+We deployed our Website and Api to https://www.caleidoscode.io
+https://www.caleidoscode.io has an FAQ section, as well as a section that explains how to set up the extension that is not yet released in the chrome web store!
+The default chain when visiting the website is our very own CryptNG Testnet.
+Network Name: CryptNG-TestNet
+RPC URL: https://testnet.cryptng.xyz:8545
+Chain ID: 501984
+Symbol: CETH
+The deployed website and API also supports, and is working with, all other networks that we deployed to and are applying to!
+
 
 ## DEPLOYED TO THE FOLLOWING CHAINS
 
