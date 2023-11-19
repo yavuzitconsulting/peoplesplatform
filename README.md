@@ -52,10 +52,19 @@ A "DAO pool" may be introduced for any administrative work such as taking over t
 # Howto to start
 
 - Clone the repo and add the extension to Chrome. Follow the description @ [People's Choice Extender Doc](https://www.caleidoscode.io/extension.html) and connect your wallet on your prefered chain (Chiado, Scroll Sepolia, Neon Devnet)
+- Use the voting buttons on Youtube or Reddit (Only visible if the exension finds some wallet address in the content)
+- Check user pics on your preferred chain https://www.caleidoscode.io/?chain=10200&p=1 (10200 Chiado, 534351 Scroll Sepolia, 245022926 Neon Devnet)
 - Add your prefered chain wallet address to your content on Youtube or Reddit
 - Use the extension to donate some funds
 - Use the voting buttons on Youtube or Reddit
 - Receive your share
+
+| Chain | People's Pics Aggregator  |
+| --- | --- |
+| Gnosis Chiado | [People's Pics for Gnosis](https://www.caleidoscode.io/?chain=10200&p=1) |
+| Scroll Sepolia | [People's Pics for Scroll](https://www.caleidoscode.io/?chain=534351&p=1)|
+| Neon Devnet | [People's Pics for Neon](https://www.caleidoscode.io/?chain=245022926&p=1) |
+| Our Testnet | [People's Pics for Testnet](https://www.caleidoscode.io/?chain=501984&p=1) |
 
 # What are the constraints
 - Donations are distributed over the choosen months starting with the next month
