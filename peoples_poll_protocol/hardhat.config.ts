@@ -96,15 +96,33 @@ const config: HardhatUserConfig = {
     etherscan: {
         apiKey: {
             scroll: 'VGT2V589VNFQ4CFKJKYR7VW8XPC3WIACCW',
+            neonlabs: "test",
+            chiado:"your key"
         },
         customChains: [
             {
-            network: 'scroll',
-            chainId: 534351,
-            urls: {
-                apiURL: 'https://sepolia-blockscout.scroll.io/api',
-                browserURL: 'https://sepolia-blockscout.scroll.io/',
+                network: 'scroll',
+                chainId: 534351,
+                urls: {
+                    apiURL: 'https://sepolia-blockscout.scroll.io/api',
+                    browserURL: 'https://sepolia-blockscout.scroll.io/',
+                },
             },
+            {
+                network: "neonlabs",
+                chainId: 245022926,
+                urls: {
+                  apiURL: "https://devnet-api.neonscan.org/hardhat/verify",
+                  browserURL: "https://devnet.neonscan.org"
+                }
+            },
+            {
+                network: "chiado",
+                chainId: 10200,
+                urls: {
+                  apiURL: "https://blockscout.com/gnosis/chiado/api",
+                  browserURL: "https://blockscout.com/gnosis/chiado",
+                },
             },
         ],
     },

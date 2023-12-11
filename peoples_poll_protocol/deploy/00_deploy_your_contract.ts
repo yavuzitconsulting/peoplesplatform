@@ -2,6 +2,8 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import {ethers} from 'hardhat';
 
+var date = new Date();
+
 /**
  * Deploys a contract named "YourContract" using the deployer account and
  * constructor arguments set to the deployer address
@@ -38,7 +40,7 @@ const deployPeoplesPlatform: DeployFunction = async function (hre: HardhatRuntim
     execute: {
       contract: 'InitFacet',
       methodName: 'init',
-      args: []
+      args: [date.getMonth(),date.getYear()]
     },
   })
 };

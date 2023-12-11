@@ -17,6 +17,8 @@ struct PeoplesPlatformStorage {
 
     bool isInitialized;
     bool _isDonatingActive;
+    
+    uint16 _startDateId;
 }
 
 contract StorageHandler {
