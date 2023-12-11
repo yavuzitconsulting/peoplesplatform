@@ -1,45 +1,33 @@
 {
-    "manifest_version": 3,
-    "name": "Peoples Choice Extender",
-    "version": "1.0",
-    "permissions": ["activeTab", "scripting","tabs"],
-    "content_scripts": [
-      {
-        "matches": ["*://www.youtube.com/*"],
-        "js": ["youtube.js"]
-      },
-      {
-        "matches": ["*://www.reddit.com/*"],
-        "js": ["reddit.js"]
-      },
-      {
-        "matches": ["<all_urls>"],
-        "js": ["generalScriptInjector.js"]
-      }
-    ],
-    "action": {
-      "default_popup": "popup.html",
-      "default_icon": {
-        "16": "img/16.png",
-        "48": "img/48.png",
-        "64": "img/64.png",
-        "128": "img/128.png"
-      }
-    },
-    "web_accessible_resources": [
-        {
-          "resources": ["contentPageInjectedScript.js"],
-          "matches": ["<all_urls>"]
-        },
-        {
-          "resources": ["ethers.min-6.8.1.js"],
-          "matches": ["<all_urls>"]
-        },
-        {
-          "resources": ["generalFunctionalityInjectedScript.js"],
-          "matches": ["<all_urls>"]
-        }
-      ]
-      
-  }
-  
+  "manifest_version": 3,
+  "name": "Peoples Choice Extender",
+  "version": "1.0",
+  "permissions": ["activeTab", "scripting", "tabs"],
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/*"],
+      "js": ["pages/youtube.js"],
+      "css": ["styles/buttonStyles.css"]
+    }
+  ],
+  "action": {
+    "default_icon": {
+      "16": "img/16.png",
+      "48": "img/48.png",
+      "64": "img/64.png",
+      "128": "img/128.png"
+    }
+  },
+  "web_accessible_resources": [
+    {
+        "resources": [
+            "lib/inject_metamaskInteraction.js",
+            "lib/inject_contentPageInteractions.js",
+            "styles/buttonStyles.css",
+            "lib/ethers.min-6.8.1.js"
+        ],
+        "matches": ["<all_urls>"]
+    }
+]
+
+}
