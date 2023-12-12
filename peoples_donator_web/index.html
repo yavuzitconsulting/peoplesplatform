@@ -9,7 +9,7 @@
         <meta name="theme-color" content="#ffffff">
         <meta charset="utf-8">
         <title>Home - People's Platform</title>
-        <link href="style.css" rel="stylesheet" type="text/css">
+        <link href="style.css?ver=1.2" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com" rel="preconnect">
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
@@ -114,7 +114,7 @@
                                             </nav>
                                         </div>
                                     </li>
-                                    <li class="nav-item-wrapper mobile-header-button"><a href="/donate" class="button-primary mobile-header-button w-button">Donate now</a>
+                                    <li class="nav-item-wrapper mobile-header-button"><a href="#donating" class="button-primary mobile-header-button w-button" onclick="document.querySelector('#donating').classList='visible';">Donate now</a>
                                     </li>
                                     <li class="nav-item-wrapper mobile-header-button"><a href="/#newsletter" class="button-secondary outline-white w-button">Stay informed!</a></li>
                                 </ul>
@@ -160,9 +160,9 @@
                             Donate now and be the reason a creator's voice grows louder and reaches further!</h2></div><div
                         
                         style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); opacity: 1; transform-style: preserve-3d;"
-                        class="button-row justify-center"><div
-                            class="button-row-first"><a href="/donate"
-                                class="button-primary w-button" onclick="document.querySelector('#donating').classList='visible';">Donate now</a></div>
+                        class="button-row justify-center">
+                        <div class="button-row-first">
+                            <a href="#donating" class="button-primary w-button" onclick="document.querySelector('#donating').classList='visible';">Donate now</a></div>
                                 <div
                             class="button-row-last"><a href="/#newsletter"
                                 class="button-secondary outline-white w-button">Stay informed!</a></div></div></div></section>
@@ -179,9 +179,8 @@
                                             class="text-200 bold text-primary-1">Our
                                             achievements</div></div><h2>Voices Unleashed, Stories Heard</span></h2><div
                                         class="max-width-430px achievements"><p
-                                            class="margin-bottom-default">We've revoiced content creators, turning silenced stories into celebrated narratives. With the help of generous donors, we've elevated voices and promoted diverse content, creating a space where free speech thrives. Every donation has been pivotal in empowering creators, fostering a community where creativity is not just supported but amplified. Together, we're championing a new era of expression and connectivity.</p></div><a
-                                        href="/donate"
-                                        class="button-primary w-button">Donate
+                                            class="margin-bottom-default">We've revoiced content creators, turning silenced stories into celebrated narratives. With the help of generous donors, we've elevated voices and promoted diverse content, creating a space where free speech thrives. Every donation has been pivotal in empowering creators, fostering a community where creativity is not just supported but amplified. Together, we're championing a new era of expression and connectivity.</p></div>
+                                            <a href="#donating" class="button-primary w-button" onclick="document.querySelector('#donating').classList='visible';">Donate
                                         now</a></div><div
                                     class="achievements-section-divider"></div><div
                                     
@@ -281,8 +280,7 @@
   "group": ""
 }</script></a></div><div class="flex-vc margin-top-default"><div
                             class="button-row justify-center"><div
-                                class="button-row-first"><a href="/donate"
-                                    class="button-primary w-button">Donate now</a></div><div
+                                class="button-row-first"><a href="#donating" class="button-primary w-button" onclick="document.querySelector('#donating').classList='visible';">Donate now</a></div><div
                                 class="button-row-last"><a href="/about"
                                     class="button-secondary w-button">About us</a></div></div></div></div>
     </section>
@@ -316,9 +314,7 @@
                                             <span class="bullet-flower">&#10047;</span>
                                             <div class="text-200 text-neutral-800"><b>Dedicated Doxed Team:</b> Experienced professionals, fully transparent operations.</div>
                                         </div>
-                                    </div><a
-                                    href="/donate"
-                                    class="button-primary w-button">Donate now</a></div><div
+                                    </div><a href="#donating" class="button-primary w-button" onclick="document.querySelector('#donating').classList='visible';">Donate now</a></div><div
                                 
                                 style="transform: translate3d(0px, 48px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); opacity: 1; transform-style: preserve-3d;"
                                 class="split-content perks-right"><div
@@ -398,8 +394,7 @@
                                     class="card-objective-content"><h3
                                         class="margin-bottom-8px">Community Building</h3><p
                                         class="margin-bottom-0px">To foster a strong community of supporters and creators, facilitating a network where shared values of creativity and free speech are upheld and celebrated.</p></div></div></div><div
-                            class="flex-vc margin-top-default"><a href="/donate"
-                                class="button-primary w-button">Donate now</a></div></div></div></section>
+                            class="flex-vc margin-top-default"><a href="#donating" class="button-primary w-button" onclick="document.querySelector('#donating').classList='visible';">Donate now</a></div></div></div></section>
         <section class="section bg-secondary-1">
             <div
                 
@@ -444,8 +439,8 @@
                     class="container-large-1126px">
                     <div class="flex-vc margin-top-default"><div
                             class="button-row justify-center"><div
-                                class="button-row-first"><a href="/donate"
-                                    class="button-primary w-button">Donate now</a></div><div
+                                class="button-row-first"><a href="#donating"
+                                    class="button-primary w-button" onclick="document.querySelector('#donating').classList='visible';">Donate now</a></div><div
                                 class="button-row-last"><a href="/whitepaper"
                                     class="button-secondary w-button">White Paper</a></div></div></div>
             </div>
@@ -500,7 +495,9 @@
     
     <div class="connect-wallet">
         <button onclick="getCurrentChainNameAndId();"><span>Connect Wallet</span><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.58325 14.6667C5.27361 14.6667 5.83325 14.107 5.83325 13.4167C5.83325 12.7263 5.27361 12.1667 4.58325 12.1667C3.8929 12.1667 3.33325 12.7263 3.33325 13.4167C3.33325 14.107 3.8929 14.6667 4.58325 14.6667Z" fill="#928E9C"></path><path d="M15.8333 3H4.16667C3.062 3.00132 2.00296 3.44073 1.22185 4.22185C0.440735 5.00296 0.00132321 6.062 0 7.16667L0 13.8333C0.00132321 14.938 0.440735 15.997 1.22185 16.7782C2.00296 17.5593 3.062 17.9987 4.16667 18H15.8333C16.938 17.9987 17.997 17.5593 18.7782 16.7782C19.5593 15.997 19.9987 14.938 20 13.8333V7.16667C19.9987 6.062 19.5593 5.00296 18.7782 4.22185C17.997 3.44073 16.938 3.00132 15.8333 3ZM4.16667 4.66667H15.8333C16.4964 4.66667 17.1323 4.93006 17.6011 5.3989C18.0699 5.86774 18.3333 6.50363 18.3333 7.16667H1.66667C1.66667 6.50363 1.93006 5.86774 2.3989 5.3989C2.86774 4.93006 3.50363 4.66667 4.16667 4.66667ZM15.8333 16.3333H4.16667C3.50363 16.3333 2.86774 16.0699 2.3989 15.6011C1.93006 15.1323 1.66667 14.4964 1.66667 13.8333V8.83333H18.3333V13.8333C18.3333 14.4964 18.0699 15.1323 17.6011 15.6011C17.1323 16.0699 16.4964 16.3333 15.8333 16.3333Z" fill="#928E9C"></path></svg></button>
+        <span class="reconnect-info">To connect again reload the page.</span>
     </div>
+    
     <div class="donation-payment-value">
         <div class="donation-duration">
             <span>Duration</span>
@@ -519,7 +516,7 @@
         </div>
         <div class="donate-per-month">
           <span for="donateAmountPerMonth">Monthly Amount</span>
-            <input type="number" id="donateAmountPerMonth" value="0.01" step="0.001" min="0.001">
+            <input type="number" id="donateAmountPerMonth" value="0.001" step="0.001" min="0.001">
         </div>
         <div class="donate-amount" inert>
           <span for="calculatedSumDonation">Total Donation:</span>
@@ -527,13 +524,92 @@
         </div>
         
     </div>
-    <p>
-        You are donating to this address 0x263572364732675 Please verify when signing the correct to address. You can check the contract at this address with etherscan.io here.
-    </p>
+    <ul>
+        <li>
+            <div class="donator-name">
+                <span for="donatorName">Enter a donator name you would like to have displayed. Leave empty for anonymous donation.</span>
+                  <input type="text" id="donatorName" maxlength="30">
+              </div>
+        </li>
+        <li>
+            <p class="donation-destination-info">
+                You are donating to this address 0x263572364732675 Please verify the correct to address in metamask when signing. You can check the contract at this address with etherscan.io here.
+            </p>
+        </li>
+    </ul>
+    
+    
     <div class="donation-payment-execute">
-        <button><span>Donate</span><svg width="25" height="25" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.41173 25.5H2.2431C1.2817 25.5 0.500488 24.7105 0.500488 23.7407V15.8026C0.500488 14.8318 1.2817 14.0423 2.2431 14.0423H5.00753C5.48667 14.0423 5.95019 14.2444 6.27829 14.5985C6.61161 14.9568 6.78139 15.4443 6.74493 15.9339L6.14913 23.873C6.08039 24.7844 5.31793 25.5 4.41173 25.5ZM2.58371 23.4168H4.09404L4.64193 16.1255H2.58371V23.4168ZM14.5278 25.5C12.0009 25.5 9.2323 24.9584 7.12095 24.0532L5.1794 23.221C4.65026 22.9949 4.40548 22.3825 4.63151 21.8544C4.85754 21.3242 5.46896 21.0763 5.99914 21.3075L7.94174 22.1398C9.80726 22.9387 12.2686 23.4168 14.5278 23.4168C17.4141 23.4168 19.7328 22.4293 22.693 21.0336C23.2638 20.7638 23.4159 20.4888 23.4159 20.369C23.4159 20.2399 23.369 20.193 23.3534 20.1774C23.2544 20.1388 22.7243 20.169 22.0191 20.4305C21.817 20.5055 21.6191 20.5701 21.4129 20.6232C18.8057 21.2961 15.207 21.4377 12.453 20.9794C11.8946 20.8857 11.5134 20.3638 11.5936 19.8045C11.6738 19.2441 12.1759 18.8462 12.7488 18.917C14.2133 19.0941 15.3965 19.067 16.3725 18.8379C16.6131 18.7993 16.7267 18.6691 16.7267 18.5181C16.7267 18.3608 16.6131 18.2358 16.4506 18.215C14.9747 18.0327 13.0998 17.7733 11.252 17.3307C10.876 17.24 9.98017 17.0963 9.18022 17.0963C8.25631 17.0963 7.68967 17.2932 6.5262 17.7796C5.99498 18.0035 5.38563 17.7494 5.16377 17.2192C4.94191 16.688 5.19294 16.0786 5.72416 15.8568C6.98346 15.3318 7.84487 15.012 9.18126 15.012C10.1062 15.012 11.1561 15.1631 11.7394 15.3026C13.4852 15.7214 15.2861 15.9703 16.659 16.1401C17.9068 16.2943 18.8099 17.314 18.8099 18.516C18.8099 18.6785 18.7932 18.8389 18.7609 18.992C19.5224 18.9004 20.2463 18.7702 20.891 18.6035L21.2962 18.4754C22.1951 18.141 23.8534 17.7254 24.8273 18.7025C25.2606 19.1389 25.4991 19.7295 25.4991 20.369C25.4991 20.8638 25.3116 22.1012 23.5815 22.9168C21.0139 24.1282 18.1037 25.5 14.5278 25.5ZM17.1631 12.3955C16.5277 12.3955 15.8923 12.157 15.409 11.681L11.0812 7.41663C10.2114 6.55938 9.77914 5.37507 9.89268 4.16472C10.0073 2.95125 10.6666 1.85964 11.6999 1.16697C13.306 0.0899501 15.5174 0.338895 16.9548 1.75757L17.1891 1.98776L17.4964 1.68465C18.286 0.907613 19.3807 0.481595 20.4879 0.508677C21.6149 0.538884 22.6524 1.01282 23.4107 1.84402C24.8418 3.41477 24.7221 5.95942 23.1409 7.51662L18.9151 11.681C18.4328 12.158 17.7974 12.3955 17.1631 12.3955ZM13.9247 2.58148C13.5477 2.58148 13.1779 2.68564 12.8592 2.89917C12.3394 3.24603 12.0228 3.76579 11.9665 4.36159C11.9113 4.94489 12.1217 5.51777 12.5436 5.93338L16.8715 10.1977C17.0329 10.356 17.2923 10.355 17.4537 10.1977L21.6795 6.03337C22.4732 5.25216 22.5597 4.00223 21.8722 3.24811C21.5004 2.8398 20.9889 2.60648 20.4338 2.59189C19.8817 2.59085 19.3547 2.78147 18.9609 3.16895L17.9224 4.19181C17.5173 4.59178 16.8662 4.59178 16.46 4.19181L15.4944 3.24082C15.0538 2.80751 14.482 2.58148 13.9247 2.58148Z" fill="#291B4F"></path></svg></button>
+        <button onclick="callDonate();"><span>Donate</span><svg width="25" height="25" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.41173 25.5H2.2431C1.2817 25.5 0.500488 24.7105 0.500488 23.7407V15.8026C0.500488 14.8318 1.2817 14.0423 2.2431 14.0423H5.00753C5.48667 14.0423 5.95019 14.2444 6.27829 14.5985C6.61161 14.9568 6.78139 15.4443 6.74493 15.9339L6.14913 23.873C6.08039 24.7844 5.31793 25.5 4.41173 25.5ZM2.58371 23.4168H4.09404L4.64193 16.1255H2.58371V23.4168ZM14.5278 25.5C12.0009 25.5 9.2323 24.9584 7.12095 24.0532L5.1794 23.221C4.65026 22.9949 4.40548 22.3825 4.63151 21.8544C4.85754 21.3242 5.46896 21.0763 5.99914 21.3075L7.94174 22.1398C9.80726 22.9387 12.2686 23.4168 14.5278 23.4168C17.4141 23.4168 19.7328 22.4293 22.693 21.0336C23.2638 20.7638 23.4159 20.4888 23.4159 20.369C23.4159 20.2399 23.369 20.193 23.3534 20.1774C23.2544 20.1388 22.7243 20.169 22.0191 20.4305C21.817 20.5055 21.6191 20.5701 21.4129 20.6232C18.8057 21.2961 15.207 21.4377 12.453 20.9794C11.8946 20.8857 11.5134 20.3638 11.5936 19.8045C11.6738 19.2441 12.1759 18.8462 12.7488 18.917C14.2133 19.0941 15.3965 19.067 16.3725 18.8379C16.6131 18.7993 16.7267 18.6691 16.7267 18.5181C16.7267 18.3608 16.6131 18.2358 16.4506 18.215C14.9747 18.0327 13.0998 17.7733 11.252 17.3307C10.876 17.24 9.98017 17.0963 9.18022 17.0963C8.25631 17.0963 7.68967 17.2932 6.5262 17.7796C5.99498 18.0035 5.38563 17.7494 5.16377 17.2192C4.94191 16.688 5.19294 16.0786 5.72416 15.8568C6.98346 15.3318 7.84487 15.012 9.18126 15.012C10.1062 15.012 11.1561 15.1631 11.7394 15.3026C13.4852 15.7214 15.2861 15.9703 16.659 16.1401C17.9068 16.2943 18.8099 17.314 18.8099 18.516C18.8099 18.6785 18.7932 18.8389 18.7609 18.992C19.5224 18.9004 20.2463 18.7702 20.891 18.6035L21.2962 18.4754C22.1951 18.141 23.8534 17.7254 24.8273 18.7025C25.2606 19.1389 25.4991 19.7295 25.4991 20.369C25.4991 20.8638 25.3116 22.1012 23.5815 22.9168C21.0139 24.1282 18.1037 25.5 14.5278 25.5ZM17.1631 12.3955C16.5277 12.3955 15.8923 12.157 15.409 11.681L11.0812 7.41663C10.2114 6.55938 9.77914 5.37507 9.89268 4.16472C10.0073 2.95125 10.6666 1.85964 11.6999 1.16697C13.306 0.0899501 15.5174 0.338895 16.9548 1.75757L17.1891 1.98776L17.4964 1.68465C18.286 0.907613 19.3807 0.481595 20.4879 0.508677C21.6149 0.538884 22.6524 1.01282 23.4107 1.84402C24.8418 3.41477 24.7221 5.95942 23.1409 7.51662L18.9151 11.681C18.4328 12.158 17.7974 12.3955 17.1631 12.3955ZM13.9247 2.58148C13.5477 2.58148 13.1779 2.68564 12.8592 2.89917C12.3394 3.24603 12.0228 3.76579 11.9665 4.36159C11.9113 4.94489 12.1217 5.51777 12.5436 5.93338L16.8715 10.1977C17.0329 10.356 17.2923 10.355 17.4537 10.1977L21.6795 6.03337C22.4732 5.25216 22.5597 4.00223 21.8722 3.24811C21.5004 2.8398 20.9889 2.60648 20.4338 2.59189C19.8817 2.59085 19.3547 2.78147 18.9609 3.16895L17.9224 4.19181C17.5173 4.59178 16.8662 4.59178 16.46 4.19181L15.4944 3.24082C15.0538 2.80751 14.482 2.58148 13.9247 2.58148Z" fill="#291B4F"></path></svg></button>
     </div>
+    <div class="not-connected-overlay">
+        Connect your wallet first.
+    </div>
+    <div class="donating-overlay">
+        Donating ...
+        <style>
+            .lds-heart {
+                display: inline-block;
+                position: relative;
+                width: 80px;
+                height: 80px;
+                transform: rotate(45deg);
+                transform-origin: 40px 40px;
+            }
+            .lds-heart div {
+                top: 32px;
+                left: 32px;
+                position: absolute;
+                width: 32px;
+                height: 32px;
+                background: #fff;
+                animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+            }
+            .lds-heart div:after,
+            .lds-heart div:before {
+                content: " ";
+                position: absolute;
+                display: block;
+                width: 32px;
+                height: 32px;
+                background: #fff;
+            }
+            .lds-heart div:before {
+                left: -24px;
+                border-radius: 50% 0 0 50%;
+            }
+            .lds-heart div:after {
+                top: -24px;
+                border-radius: 50% 50% 0 0;
+            }
+            @keyframes lds-heart {
+                0% {
+                    transform: scale(0.95);
+                }
+                5% {
+                    transform: scale(1.1);
+                }
+                39% {
+                    transform: scale(0.85);
+                }
+                45% {
+                    transform: scale(1);
+                }
+                60% {
+                    transform: scale(0.95);
+                }
+                100% {
+                    transform: scale(0.9);
+                }
+            }
 
+        </style>
+        <div class="lds-heart"><div></div></div>
+    </div>
+    <div class="donation-thanks-overlay">
+        <b>Donated ♥</b><br><br>
+        <b>Thank You!</b> With each donation content creator receive, we become all that much closer to our goal. Thank you for making a difference through your compassion and generosity.
+    </div>
 </div>
 
         </section>
@@ -567,14 +643,13 @@
                 background-color: #ffd500;
                 color: white;
                 border: 3px solid #737382;
-            }
-
-            #donating.visible{
-                display: flex;
-                top:0;
+                z-index: 1;
             }
 
             #donating .donation-card{
+                position:relative;
+                overflow: hidden;
+                cursor: auto;
                 width: 400px;
                 height: 600px;
                 border-radius: 20px;
@@ -585,13 +660,113 @@
                 align-items: center;
                 justify-content: space-around;
                 box-shadow: 5px 5px 15px -3px rgba(0,0,0,0.75);
-
             }
 
-            #donating .connect-wallet, #donating .donation-payment-execute{
+            #donating .donation-card .not-connected-overlay{
+                position: absolute;
+                top: 110px;
+                height: calc(100% - 110px);
+                background-color: #827f73a3;
+                color: #fff;
+                line-height: 2rem;
+                padding-top: calc((100% - 60px - 2rem) / 2);
+                text-align: center;
                 width: 100%;
+                border-radius: 20px;
+                text-shadow: 2px 2px 4px black;
+                transition: all 0.3s ease-in-out;
             }
-            #donating .connect-wallet button, #donating .donation-payment-execute button{
+
+            #donating .donation-card.connected .not-connected-overlay{
+                top:100vh;
+            }
+            #donating .donation-card .donation-thanks-overlay{
+                position: absolute;
+                top:calc(100vh + 20px);
+                height: calc(100%);
+                background-color: #f4da73;
+                color: #352a00;
+                line-height: 2rem;
+                padding: calc(100% / 2) 20px;
+                text-align: center;
+                width: 100%;
+                border-radius: 20px;
+                text-shadow: 3px 3px 4px #2b2b2b4d;
+                transition: all 0.3s ease-in-out;
+            }
+
+            #donating .donation-card.donated .donation-thanks-overlay{
+                top:0px;
+            }
+            #donating .donation-card .donating-overlay{
+                position: absolute;
+                top:calc(100vh + 20px);
+                height: calc(100%);
+                background-color: #73b1f4;
+                color: white;
+                line-height: 2rem;
+                padding: calc(100% / 2) 20px;
+                text-align: center;
+                width: 100%;
+                border-radius: 20px;
+                text-shadow: 3px 3px 4px #2b2b2b4d;
+                transition: all 0.3s ease-in-out;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #donating .donation-card.donating .donating-overlay{
+                top:0px;
+            }
+
+            #donating .donation-card>ul{
+                padding-left: 20px;
+            }
+
+            #donating .donation-card>ul>li{
+                list-style-type: disclosure-closed;
+            }
+
+            #donating.visible{
+                display: flex;
+                top:0;
+            }
+
+            #donating .connect-wallet, 
+            #donating .donation-payment-execute{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #donating .connect-wallet button:disabled{
+                background-color: #d9d6be;
+                color: gray;
+            }
+
+            #donating .connect-wallet .reconnect-info{
+                opacity: 0;
+                transition: all 0.3s ease-in-out;
+                font-size: small;
+                background-color: #f2faff;
+                padding: 2px 5px;
+                line-height: 1rem;
+                position: relative;
+                top:0;
+                border-radius: 5px;
+                box-shadow: 2px 2px 5px #969696;
+            }
+
+            #donating .donation-card.connected .connect-wallet .reconnect-info{
+                opacity: 1;
+                top: -60px;
+            }
+
+            
+            #donating .connect-wallet button, 
+            #donating .donation-payment-execute button{
                 display: flex;
                 flex-direction: row;
                 -webkit-box-pack: center;
@@ -605,6 +780,15 @@
                 border-radius: 10px;
                 background-color: rgb(255, 213, 0);
                 font-size: larger;
+                cursor: pointer;
+                box-shadow: 3px 3px 11px -6px #000000;
+                transition: all 0.3s ease-in-out;
+            }
+
+            #donating .connect-wallet button:hover, 
+            #donating .donation-payment-execute button:hover{
+                box-shadow: 3px 3px 11px -4px #000000;
+                transform: scale(1.01);
             }
 
             .donation-payment-value {
@@ -652,26 +836,287 @@
                 font-weight: bold;
                 color: rgb(12, 52, 141);
             }
+
+            #donating .donation-destination-info {
+                font-size: smaller;
+                line-height: 1.2rem;
+            }
+            #donating .donator-name {
+                color: darkblue;
+                font-size: smaller;
+                line-height: 1.2rem;
+            }
+
+            #donating .donator-name input{
+                width: 100%;
+                line-height: calc(2rem - 10px);
+                padding: 5px;
+            }
         </style>
         <script>
-            // const options = {
-            // rootMargin: '0px',
-            // threshold: 1.0
-            // };
-            // const element = document.querySelector('#donating');
-            // const observer = new IntersectionObserver((entries, observer) => {
-            // entries.forEach(entry => {
-            //     console.log(entry.intersectionRatio === 1 ? 'visible' : 'invisible');
-            //     if(entry.intersectionRatio === 1) element.querySelector('.donation-card').classList="visible";
-            //     else element.querySelector('.donation-card').classList="unvisible";
-            // });
-            // }, options);
-            
-            // observer.observe(element);
+            contractABI=
+            [
+                {
+                "anonymous": false,
+                "inputs": [
+                    {
+                    "indexed": false,
+                    "internalType": "uint64",
+                    "name": "donatedFinney",
+                    "type": "uint64"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "months",
+                    "type": "uint16"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "currentMonth",
+                    "type": "uint16"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "currentYear",
+                    "type": "uint16"
+                    }
+                ],
+                "name": "Donated",
+                "type": "event"
+                },
+                {
+                "anonymous": false,
+                "inputs": [
+                    {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "shareFinney",
+                    "type": "uint32"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "transferDateId",
+                    "type": "uint32"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "transferFromDonationBucketPos",
+                    "type": "uint16"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "month",
+                    "type": "uint16"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "year",
+                    "type": "uint16"
+                    }
+                ],
+                "name": "RemovedFromDonationBucket",
+                "type": "event"
+                },
+                {
+                "anonymous": false,
+                "inputs": [
+                    {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "month",
+                    "type": "uint16"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "year",
+                    "type": "uint16"
+                    }
+                ],
+                "name": "TransferedFairShare",
+                "type": "event"
+                },
+                {
+                "anonymous": false,
+                "inputs": [
+                    {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "url",
+                    "type": "string"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "up",
+                    "type": "bool"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "title",
+                    "type": "string"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                    }
+                ],
+                "name": "Voted",
+                "type": "event"
+                },
+                {
+                "inputs": [
+                    {
+                    "internalType": "uint16",
+                    "name": "months",
+                    "type": "uint16"
+                    },
+                    {
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                    },
+                    {
+                    "internalType": "uint16",
+                    "name": "currentMonth",
+                    "type": "uint16"
+                    },
+                    {
+                    "internalType": "uint16",
+                    "name": "currentYear",
+                    "type": "uint16"
+                    }
+                ],
+                "name": "donate",
+                "outputs": [],
+                "stateMutability": "payable",
+                "type": "function"
+                },
+                {
+                "inputs": [],
+                "name": "setDonatingActive",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+                },
+                {
+                "inputs": [],
+                "name": "setDonatingInactive",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+                },
+                {
+                "inputs": [
+                    {
+                    "internalType": "address payable",
+                    "name": "to",
+                    "type": "address"
+                    },
+                    {
+                    "internalType": "uint16",
+                    "name": "month",
+                    "type": "uint16"
+                    },
+                    {
+                    "internalType": "uint16",
+                    "name": "year",
+                    "type": "uint16"
+                    },
+                    {
+                    "internalType": "uint16",
+                    "name": "currentMonth",
+                    "type": "uint16"
+                    },
+                    {
+                    "internalType": "uint16",
+                    "name": "currentYear",
+                    "type": "uint16"
+                    }
+                ],
+                "name": "transfer",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+                },
+                {
+                "inputs": [
+                    {
+                    "internalType": "string",
+                    "name": "url",
+                    "type": "string"
+                    },
+                    {
+                    "internalType": "bool",
+                    "name": "up",
+                    "type": "bool"
+                    },
+                    {
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                    },
+                    {
+                    "internalType": "string",
+                    "name": "title",
+                    "type": "string"
+                    },
+                    {
+                    "internalType": "uint16",
+                    "name": "currentMonth",
+                    "type": "uint16"
+                    },
+                    {
+                    "internalType": "uint16",
+                    "name": "currentYear",
+                    "type": "uint16"
+                    }
+                ],
+                "name": "vote",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+                }
+            ];
+
             let contractAddressMapping = 
             [
                 {"contractAddress":"0x188C8d37fb966713CbDc7cCc1A6ed3da060FFac3", "chainId": 501984},
-                {"contractAddress":"0x314AA36352771307E942FaeD6d8dfB2398916E92", "chainId": 534351},
+                {"contractAddress":"0x314AA36352771307E942FaeD6d8dfB2398916E92", "chainId": 534351}, //scroll
                 {"contractAddress":"0x9A1554a110A593b5C137643529FAA258a710245C", "chainId": 245022926},
                 {"contractAddress":"0xffC39C76C68834FE1149554Ccc1a76C2F1281beD", "chainId": 10200}
             ];
@@ -711,29 +1156,62 @@
             function getCurrentChainNameAndId()
             { 
                 initiateContract().then(()=>{
-                    provider.getNetwork().then(()=>{
+                    provider.getNetwork().then((network)=>{
                         const chainId =Number(network.chainId);
                         const chainName = network.name;
 
                         console.log( { chainId, chainName });
+                        document.querySelector('#donating .donation-card')?.classList.toggle('connected');
+                        document.querySelector('#donating .connect-wallet button').disabled = true;
                     });
                     
                 });
                 
             }
 
+            function calculateDonationSum() {
+                var months = document.querySelector('#duration-options').value;
+                var monthlyAmount = document.querySelector('#donateAmountPerMonth').value;
+
+                // Calculate the total donation sum
+                var totalDonation = months * monthlyAmount;
+
+                // Round to two decimal places and convert back to a number
+                totalDonation = Number(totalDonation.toFixed(3));
+
+                // Display the result in the calculatedSumDonation field
+                return totalDonation;
+            }
+
             function calculateAndDisplayDonationSum() {
-            var months = document.querySelector('#duration-options').value;
-            var monthlyAmount = document.querySelector('#donateAmountPerMonth').value;
+       
+                // Display the result in the calculatedSumDonation field
+                document.querySelector('#calculatedSumDonation').value = calculateDonationSum();
+            }
 
-            // Calculate the total donation sum
-            var totalDonation = months * monthlyAmount;
+            function callDonate(){
+                document.querySelector('#donating .donation-card')?.classList.toggle('donating');
+                const months = document.querySelector('#duration-options').value;
+                const name = document.querySelector('#donatorName').value;
+                const oneFinneyInWey = 1000000000000000n;
+                const valueInWey = BigInt(Math.trunc(Math.round(calculateDonationSum()*1000))) * oneFinneyInWey;
+                asyncCallDonate(months,name,valueInWey).then(()=>{
+                    console.log("Successfully donated:"+valueInWey.toString());
+                })
+            }
 
-            // Round to two decimal places and convert back to a number
-            totalDonation = Number(totalDonation.toFixed(3));
-
-            // Display the result in the calculatedSumDonation field
-            document.querySelector('#calculatedSumDonation').value = totalDonation;
+            async function asyncCallDonate(months,name,valueInWey){
+                try {
+                    const currentDate = new Date();
+                    const transaction = await contract.donate(months,name, currentDate.getMonth() + 1, currentDate.getFullYear(),{value:valueInWey});
+                    console.log('Vote transaction sent:', transaction.hash);
+                    await transaction.wait();
+                    console.log('Vote transaction confirmed');
+                    document.querySelector('#donating .donation-card')?.classList.toggle('donated');
+                } catch (error) {
+                    console.error('Vote transaction failed:', error);
+                    document.querySelector('#donating .donation-card')?.classList.toggle('donating');
+                }
             }
 
 
@@ -751,13 +1229,10 @@
                             
                             class="footer-content"
                             style="transform: translate3d(0px, 48px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; opacity: 1;"><div
-                                class="split-content footer-left"><a
-                                    href="/" aria-current="page"
-                                    class="footer-logo-container w-inline-block ">People's Platform - Voices Unleashed</a><p
-                                    class="text-neutral-200 margin-bottom-30px">Aims to transform the landscape of social media by shifting the power from advertisers to the community. </p><a
-                                    href="/donate"
-                                    class="button-primary small w-button">Donate
-                                    now</a></div><div
+                                class="split-content footer-left">
+                                <a href="/" aria-current="page" class="footer-logo-container w-inline-block text-neutral-100">People's Platform - Voices Unleashed</a><p
+                                    class="text-neutral-200 margin-bottom-30px">Aims to transform the landscape of social media by shifting the power from advertisers to the community. </p>
+                                    <a href="#donating" class="button-primary small w-button" onclick="document.querySelector('#donating').classList='visible';">Donate now</a></div><div
                                 class="split-content footer-right"><div
                                     class="footer-menu-main-content"><div
                                         class="footer-menu-wrapper"><div
@@ -771,67 +1246,34 @@
                                                         aria-current="page"
                                                         class="text-200 text-neutral-100 footer-nav-link ">Home</a></li><li
                                                     class="footer-nav-item"><a
-                                                        href="/about"
+                                                        href="#about"
                                                         class="text-200 text-neutral-100 footer-nav-link">About</a></li><li
                                                     class="footer-nav-item"><a
-                                                        href="/blog"
-                                                        class="text-200 text-neutral-100 footer-nav-link">Blog</a></li><li
+                                                        href="#newsletter"
+                                                        class="text-200 text-neutral-100 footer-nav-link">Newsletter</a></li><li
                                                     class="footer-nav-item"><a
-                                                        href="https://donatetemplate.webflow.io/blog/choosing-the-best-plants-for-your-ecosystem"
-                                                        class="text-200 text-neutral-100 footer-nav-link">Blog
+                                                        href="/whitepaper"
+                                                        class="text-200 text-neutral-100 footer-nav-link">Whitepaper
                                                         Post</a></li><li
                                                     class="footer-nav-item"><a
-                                                        href="https://donatetemplate.webflow.io/about#team-members"
-                                                        class="text-200 text-neutral-100 footer-nav-link">Community</a></li><li
+                                                        href="https://remonetized.news"
+                                                        class="text-200 text-neutral-100 footer-nav-link">Remonetize News</a></li><li
                                                     class="footer-nav-item"><a
-                                                        href="/donate"
-                                                        class="text-200 text-neutral-100 footer-nav-link">Donate</a></li><li
+                                                        href="#donating"
+                                                        class="text-200 text-neutral-100 footer-nav-link" onclick="document.querySelector('#donating').classList='visible';">Donate</a></li><li
                                                     class="footer-nav-item"><a
-                                                        href="https://donatetemplate.webflow.io/product/donate-500-usd-to-our-cause"
+                                                        href="/donatesingle"
                                                         class="text-200 text-neutral-100 footer-nav-link">Donate
                                                         Single</a></li><li
                                                     class="footer-nav-item"><a
-                                                        href="/contact"
-                                                        class="text-200 text-neutral-100 footer-nav-link">Contact</a></li><li
-                                                    class="footer-nav-item"><a
-                                                        href="/coming-soon"
-                                                        class="text-200 text-neutral-100 footer-nav-link">Coming
-                                                        Soon</a></li></ul></div></div><div
-                                        class="footer-menu-wrapper last"><div
-                                            class="margin-bottom-30px"><div
-                                                class="text-200 bold text-neutral-100">Utility
-                                                Pages</div></div><div
-                                            class="footer-menu-content"><ul
-                                                role="list"
-                                                class="footer-nav w-list-unstyled"><li
-                                                    class="footer-nav-item"><a
-                                                        href="/utility-pages/start-here"
-                                                        class="text-200 text-neutral-100 footer-nav-link">Start
-                                                        Here</a></li><li
-                                                    class="footer-nav-item"><a
-                                                        href="/utility-pages/style-guide"
-                                                        class="text-200 text-neutral-100 footer-nav-link">Style
-                                                        Guide</a></li><li
-                                                    class="footer-nav-item"><a
-                                                        href="https://donatetemplate.webflow.io/401"
-                                                        class="text-200 text-neutral-100 footer-nav-link">Password
-                                                        Protected</a></li><li
-                                                    class="footer-nav-item"><a
-                                                        href="https://donatetemplate.webflow.io/404"
-                                                        class="text-200 text-neutral-100 footer-nav-link">404
-                                                        Not Found</a></li><li
-                                                    class="footer-nav-item"><a
-                                                        href="/utility-pages/licenses"
-                                                        class="text-200 text-neutral-100 footer-nav-link">Licenses</a></li><li
-                                                    class="footer-nav-item"><a
-                                                        href="/utility-pages/changelog"
-                                                        class="text-200 text-neutral-100 footer-nav-link">Changelog</a></li></ul></div></div></div><div
+                                                        href="#contact"
+                                                        class="text-200 text-neutral-100 footer-nav-link">Contact</a></li></ul></div></div></div><div
                                     class="footer-instagram-wrapper"><div
                                         class="margin-bottom-30px"><div
                                             class="text-200 bold text-neutral-100">Visit
                                             our Instagram</div></div><div
                                         class="w-layout-grid grid-2-columns gap-16px footer-instagram"><a
-                                            href="https://www.instagram.com/@peoplesplatform"
+                                            href="https://www.instagram.com/peoples_platform_org/"
                                             target="_blank"
                                             class="image-wrapper borders-radius-16px instagram-image w-inline-block"><img
                                                 src="https://assets-global.website-files.com/6180988350de7c7a910ac44f/6182bca8cdeff0897a49d2cf_image-1-footer-instagram-donate-template.jpg"
