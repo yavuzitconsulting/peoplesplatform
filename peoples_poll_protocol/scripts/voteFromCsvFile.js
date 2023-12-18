@@ -2,12 +2,118 @@ const { ethers } = require("hardhat");
 
 const fs = require('fs');
 
-const provider = new ethers.providers.JsonRpcProvider('https://devnet.neonevm.org'); //neon
+const provider = new ethers.providers.JsonRpcProvider('https://rpc.gnosischain.com'); //gnosis
+//const provider = new ethers.providers.JsonRpcProvider('https://devnet.neonevm.org'); //neon
 // const provider = new ethers.providers.JsonRpcProvider('https://sepolia-rpc.scroll.io/'); //scroll
 // const provider = new ethers.providers.JsonRpcProvider('https://rpc.chiadochain.net'); //chiado
 // const provider = new ethers.providers.JsonRpcProvider('https://testnet.cryptng.xyz:8545'); //testnet
 
 const contractABI = [
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "donatedFinney",
+        "type": "uint64"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "months",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "currentMonth",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "currentYear",
+        "type": "uint16"
+      }
+    ],
+    "name": "Donated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "shareFinney",
+        "type": "uint32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "transferDateId",
+        "type": "uint32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "transferFromDonationBucketPos",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "month",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "year",
+        "type": "uint16"
+      }
+    ],
+    "name": "RemovedFromDonationBucket",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "month",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "year",
+        "type": "uint16"
+      }
+    ],
+    "name": "TransferedFairShare",
+    "type": "event"
+  },
   {
     "anonymous": false,
     "inputs": [
@@ -28,6 +134,18 @@ const contractABI = [
         "internalType": "string",
         "name": "title",
         "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
       }
     ],
     "name": "Voted",
@@ -39,6 +157,11 @@ const contractABI = [
         "internalType": "uint16",
         "name": "months",
         "type": "uint16"
+      },
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
       },
       {
         "internalType": "uint16",
@@ -59,6 +182,13 @@ const contractABI = [
   {
     "inputs": [],
     "name": "setDonatingActive",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "setDonatingInactive",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -136,7 +266,8 @@ const contractABI = [
   }
 ];
 
-const contractAddress = '0x68AF7F21e3D6D3F38de67a6E0535e9249170BD10';  // set to current contract address NEON
+const contractAddress = '0x9e3B92A7762a810CCe3eF7cEb9B0177c595f463f';  // set to current contract address GNOSIS
+// const contractAddress = '0x68AF7F21e3D6D3F38de67a6E0535e9249170BD10';  // set to current contract address NEON
 // const contractAddress = '0x314AA36352771307E942FaeD6d8dfB2398916E92';  // set to current contract address SCROLL
 // const contractAddress = '0xffC39C76C68834FE1149554Ccc1a76C2F1281beD';  // set to current contract address CHIADO
 // const contractAddress = '0x006cA8c68834EaD3292C503ac62c0d1eC9fa2DA7';  // set to current contract address TESTNET
@@ -175,12 +306,12 @@ const receivers=[
 
 async function voteFromCsvFile() {
   const accounts = await ethers.getSigners();
-  console.log(accounts[0]);
+  //console.log(accounts[0]);
   const contract = new ethers.Contract(contractAddress, contractABI, provider);
   
   const signerContract = contract.connect(accounts[0]);
 
-    const allUrls = fs.readFileSync('data/toVoteUrls.csv', 'utf-8');
+    const allUrls = fs.readFileSync('data/toVoteUrls_long.csv', 'utf-8');
     const allUlrLines = allUrls.split('\n').slice(1); // remove the header
 
     const curYear = new Date().getFullYear();
@@ -203,13 +334,16 @@ async function voteFromCsvFile() {
     for (let url of urls) {
         const upVote = Math.floor(Math.random() * 10) % 2 ===1;
         try{
-            const gasEstimated = ethers.utils.hexlify(await signerContract.estimateGas.vote(url.url,url.up,url.receiver,url.title,curMonth,curYear));
-                        
-            console.log('gp:'+gasEstimated);
+            const gasEstimated = await signerContract.estimateGas.vote(url.url,url.up,url.receiver,url.title,curMonth,curYear);
+            const tenPercent =   gasEstimated.div(5);
+            const maxGas =   gasEstimated.add(tenPercent).mul(10);
+            console.log('gasPrice: '+gasEstimated);
+            console.log('tenPercent: '+tenPercent);
+            console.log('maxGas: '+maxGas);
         
             const tx = await signerContract.vote(url.url,url.up,url.receiver,url.title,curMonth,curYear);
                     
-            console.log("tx: " + await tx.wait());
+           console.log("tx: " + await tx.wait());
 
             
         }

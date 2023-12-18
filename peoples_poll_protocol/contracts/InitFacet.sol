@@ -17,9 +17,13 @@ contract InitFacet is UsingDiamondOwner, StorageHandler {
 
         PeoplesPlatformStorage storage pp = pp();
 
-        if (pp.isInitialized) return;
+        
 
-        pp._startDateId = currentYear * 12 + currentMonth;
+        uint16 _currentMonth = currentMonth -1;
+
+        pp._startDateId = currentYear * 12 + _currentMonth;
+
+        if (pp.isInitialized) return;
 
         pp._isDonatingActive=true;
 

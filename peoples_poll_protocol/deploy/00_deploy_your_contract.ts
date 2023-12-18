@@ -12,9 +12,11 @@ var date = new Date();
  */
 console.log("what");
 const deployPeoplesPlatform: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-  //const { deployer } = await hre.getNamedAccounts();
+  const { deployer } = await hre.getNamedAccounts();
   const [owner,address1,address2] = await ethers.getSigners();
   const { diamond } = hre.deployments;
+
+  console.log(deployer);
 
   await diamond.deploy("PeoplesPlatform", {
     from: owner.address,
@@ -40,7 +42,7 @@ const deployPeoplesPlatform: DeployFunction = async function (hre: HardhatRuntim
     execute: {
       contract: 'InitFacet',
       methodName: 'init',
-      args: [date.getMonth(),date.getYear()]
+      args: [date.getMonth()+1,date.getFullYear()]
     },
   })
 };

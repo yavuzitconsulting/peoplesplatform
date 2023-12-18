@@ -43,6 +43,8 @@ contract PeoplesPlatformFacet is StorageHandler, UsingDiamondOwner {
     }
 
     function donate(uint16 months, string memory name,uint16 currentMonth,uint16 currentYear) public payable {
+        require(currentMonth > 0 && currentMonth<13, "Provide currentMonth as calendar month starting with 1 and last 12");
+        uint16 _currentMonth = currentMonth-1;
         require(months < 25, "Only upto 24 months is supported");
         require(msg.value % months == 0, "Payed amount must be devidable by the distributed months");
         require(msg.value % 1_000_000_000_000_000  == 0, "Less than 1 finney(1/1000 ETH) fractions are not supported");
@@ -53,8 +55,9 @@ contract PeoplesPlatformFacet is StorageHandler, UsingDiamondOwner {
 
         PeoplesPlatformStorage storage pp = pp();
 
-        uint32 donationRelativeDateId = (currentYear*12+currentMonth+1)-pp._startDateId;
+        uint32 donationRelativeDateId = (currentYear*12+_currentMonth)-pp._startDateId;
 
+        //require(false,Strings.toString(donationRelativeDateId));
         for (uint32 i = donationRelativeDateId; i < donationRelativeDateId + months; i++) {
          
             uint32 donationBucketPos = i % 48;

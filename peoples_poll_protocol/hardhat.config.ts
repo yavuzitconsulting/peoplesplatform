@@ -4,6 +4,9 @@ import 'hardhat-deploy-ethers';
 import "@nomicfoundation/hardhat-toolbox";
 require("@nomicfoundation/hardhat-chai-matchers");
 
+const { GNOSIS_MNEMONIC } = process.env;
+
+//console.log(process.env);
 const config: HardhatUserConfig = {
     solidity: {
         version: "0.8.10",
@@ -25,7 +28,7 @@ const config: HardhatUserConfig = {
         // View the networks that are pre-configured.
         // If the network you are looking for is not here you can add new network settings
         local_docker: {
-            url: `http://172.29.194.145:8545`,
+            url: `http://172.17.0.2:8545`,
             gasPrice: 20e10,
             gas: 25e8,
             blockGasLimit: 0x1fffffffffffffff,
@@ -45,6 +48,17 @@ const config: HardhatUserConfig = {
             passphrase: "",
             },
         },
+        gnosis: {
+            url: "https://rpc.gnosischain.com",
+            gasPrice: 5000000000,
+            accounts: {
+                mnemonic: `${GNOSIS_MNEMONIC}`,
+                path: "m/44'/60'/0'/0",
+                initialIndex: 0,
+                count: 20,
+                passphrase: "",
+            }
+          },
         chiado: {
             url: "https://rpc.chiadochain.net",
             gasPrice: 1000000000,
