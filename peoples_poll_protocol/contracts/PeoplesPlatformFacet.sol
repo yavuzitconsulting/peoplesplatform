@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 
 import {PeoplesPlatformStorage,StorageHandler} from "./PeoplesPlatformStorage.sol";
+import {LibPeoplesPlatform} from "./LibPeoplesPlatform.sol";
 import {UsingDiamondOwner} from "hardhat-deploy/solc_0.8/diamond/UsingDiamondOwner.sol";
 
 
@@ -25,11 +26,11 @@ contract PeoplesPlatformFacet is StorageHandler, UsingDiamondOwner {
     event TransferedFairShare(uint256 amount,address to,uint16 month,uint16 year);
     event RemovedFromDonationBucket(uint32 shareFinney,uint32 transferDateId,uint16 transferFromDonationBucketPos, uint16 month, uint16 year);
 
-    uint32[24] _donationBuckets = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; 
-    mapping(uint32 => address[]) _dateIdAddresses;
-    mapping(uint256 => int32) _dateAddressIdVoteValues;
-    mapping(uint256 => bool) _dateAddressIdHasVotes;
-    mapping(uint256 => bool) _monthAddressHasTransfered;
+    struct DonationBuckets{
+        uint16 startMonth;
+        uint16 startYear;
+        uint32[48] donationBuckets;
+    }
 
 
     function setDonatingActive() public onlyOwner {
@@ -42,9 +43,9 @@ contract PeoplesPlatformFacet is StorageHandler, UsingDiamondOwner {
         pp._isDonatingActive = false;
     }
 
-    function donate(uint16 months, string memory name,uint16 currentMonth,uint16 currentYear) public payable {
-        require(currentMonth > 0 && currentMonth<13, "Provide currentMonth as calendar month starting with 1 and last 12");
-        uint16 _currentMonth = currentMonth-1;
+    function donate(uint16 months, string memory name) public payable {
+        LibPeoplesPlatform._DateTime memory date = LibPeoplesPlatform.parseTimestamp(block.timestamp);
+        uint16 currentMonth0Based = date.month-1;
         require(months < 25, "Only upto 24 months is supported");
         require(msg.value % months == 0, "Payed amount must be devidable by the distributed months");
         require(msg.value % 1_000_000_000_000_000  == 0, "Less than 1 finney(1/1000 ETH) fractions are not supported");
@@ -55,68 +56,88 @@ contract PeoplesPlatformFacet is StorageHandler, UsingDiamondOwner {
 
         PeoplesPlatformStorage storage pp = pp();
 
-        uint32 donationRelativeDateId = (currentYear*12+_currentMonth)-pp._startDateId;
+        uint32 testSubMonths = pp._isTesting?5:0;
+
+        uint32 donationRelativeDateId = (date.year*12+currentMonth0Based)-pp._startDateId - testSubMonths;
 
         //require(false,Strings.toString(donationRelativeDateId));
         for (uint32 i = donationRelativeDateId; i < donationRelativeDateId + months; i++) {
          
             uint32 donationBucketPos = i % 48;
-            _donationBuckets[donationBucketPos]=_donationBuckets[donationBucketPos]+perMonthValue;
+            pp._donationBuckets[donationBucketPos]=pp._donationBuckets[donationBucketPos]+perMonthValue;
 
         }
 
-        emit Donated(uint64(donatedValueInFinney),name, months, currentMonth, currentYear);
+        emit Donated(uint64(donatedValueInFinney),name, months, date.month, date.year);
 
     }
 
-    function vote(string memory url, bool up,address receiver,string memory title, uint16 currentMonth,uint16 currentYear ) public{
+    function vote(string memory url, bool up,address receiver,string memory title) public{
+        LibPeoplesPlatform._DateTime memory date = LibPeoplesPlatform.parseTimestamp(block.timestamp);
+        uint16 currentMonth0Based = date.month-1;
         uint160 uintAddress = uint160(receiver);
         if(uintAddress & uint160(0x1111000000000000000000000000000000000000) != uint160(0x1111000000000000000000000000000000000000))
         {
-            uint32 voteDateId = currentYear * 12 + currentMonth;
+            PeoplesPlatformStorage storage pp = pp();
+
+            uint32 testSubMonths = pp._isTesting?5:0;
+            uint32 voteDateId = date.year * 12 + currentMonth0Based - testSubMonths;
             uint256 dateAddressId = (uint256(uintAddress) << 20) +voteDateId;
-            if(!_dateAddressIdHasVotes[dateAddressId]){
-                _dateAddressIdHasVotes[dateAddressId]=true;
-                _dateAddressIdVoteValues[dateAddressId]=0;
-                _dateIdAddresses[voteDateId].push(receiver);
+            
+            if(!pp._dateAddressIdHasVotes[dateAddressId]){
+                pp._dateAddressIdHasVotes[dateAddressId]=true;
+                pp._dateAddressIdVoteValues[dateAddressId]=0;
+                pp._dateIdAddresses[voteDateId].push(receiver);
             }
 
             if(up){
-                _dateAddressIdVoteValues[dateAddressId]++;
+                pp._dateAddressIdVoteValues[dateAddressId]++;
             }else{
-                _dateAddressIdVoteValues[dateAddressId]--;
+                pp._dateAddressIdVoteValues[dateAddressId]--;
             }
         }
         emit Voted(url, up,title,receiver,msg.sender);
     }
 
-    function transfer(address payable to, uint16 month, uint16 year,uint16 currentMonth,uint16 currentYear) public {
-       
-        uint32 curDateId = currentYear * 12 + currentMonth;
-        uint32 transferDateId = year * 12 + month;
+    function transfer(address payable to, uint16 month, uint16 year) public {
+        LibPeoplesPlatform._DateTime memory date = LibPeoplesPlatform.parseTimestamp(block.timestamp);
+        uint16 currentMonth0Based = date.month-1;
+        uint32 curDateId = date.year * 12 + currentMonth0Based;
+        //require(false,Strings.toString( curDateId));
+        uint32 transferDateId = year * 12 + month -1;
+        PeoplesPlatformStorage storage pp = pp();
         require(transferDateId < curDateId,"Your can only transfer your share for month before the current one");
+        require(transferDateId >= pp._startDateId,"Your can only transfer your share for months after donation started");
         require(curDateId - transferDateId < 24,"Your can't transfer shares more than 24 months ago.");
         uint256 monthSenderAddressId = (uint256(uint160(msg.sender)) << 20) +transferDateId;
-        require(_monthAddressHasTransfered[monthSenderAddressId]==false,"Share already transfered");
-        require(_dateAddressIdVoteValues[monthSenderAddressId]>0,"You have not enough upvotes to be eligible");
+        
+        require(pp._monthAddressHasTransfered[monthSenderAddressId]==false,"Share already transfered");
+        require(pp._dateAddressIdVoteValues[monthSenderAddressId]>0,"You have not enough upvotes to be eligible");
         
         uint64 voteSum = 0;
-        for (uint i=0; i<_dateIdAddresses[transferDateId].length; i++) {
-            uint256 monthAddressId=(uint256( uint160(_dateIdAddresses[transferDateId][i])) << 20) +transferDateId;
-            if(_dateAddressIdVoteValues[monthAddressId]>0){
-                voteSum = voteSum + uint32(_dateAddressIdVoteValues[monthAddressId]);
+        for (uint i=0; i<pp._dateIdAddresses[transferDateId].length; i++) {
+            uint256 monthAddressId=(uint256( uint160(pp._dateIdAddresses[transferDateId][i])) << 20) +transferDateId;
+            if(pp._dateAddressIdVoteValues[monthAddressId]>0){
+                voteSum = voteSum + uint32(pp._dateAddressIdVoteValues[monthAddressId]);
             }
             
         }
-        PeoplesPlatformStorage storage pp = pp();
         
         uint16 transferFromDonationBucketPos = uint16(transferDateId - pp._startDateId) % 48;
-        uint32 shareFinney =uint32( (_donationBuckets[transferFromDonationBucketPos] *  uint32(_dateAddressIdVoteValues[monthSenderAddressId])) / (voteSum ));
-        require(_donationBuckets[transferFromDonationBucketPos] >= shareFinney,"Not enough donations for that months available.");
-        _donationBuckets[transferFromDonationBucketPos] -= shareFinney;
-        _monthAddressHasTransfered[monthSenderAddressId]=true;
+     
+        uint32 shareFinney =uint32( (pp._donationBuckets[transferFromDonationBucketPos] *  uint32(pp._dateAddressIdVoteValues[monthSenderAddressId])) / (voteSum ));
+        
+        require(pp._donationBuckets[transferFromDonationBucketPos] >= shareFinney,"Not enough donations for that months available.");
+        pp._donationBuckets[transferFromDonationBucketPos] -= shareFinney;
+        pp._monthAddressHasTransfered[monthSenderAddressId]=true;
         to.transfer(shareFinney*1_000_000_000_000_000);
         emit TransferedFairShare(shareFinney*1_000_000_000_000_000, to,month, year);
         emit RemovedFromDonationBucket(shareFinney,transferDateId,transferFromDonationBucketPos, month, year);
+    }
+
+    function donationBuckets() public view returns(DonationBuckets memory) {
+        PeoplesPlatformStorage storage pp = pp();
+        return DonationBuckets(pp._startDateId % 12 + 1,pp._startDateId / 12,pp._donationBuckets);
+       
     }
 }

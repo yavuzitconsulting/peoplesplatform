@@ -29,9 +29,9 @@ const config: HardhatUserConfig = {
         // If the network you are looking for is not here you can add new network settings
         local_docker: {
             url: `http://172.17.0.2:8545`,
-            gasPrice: 20e10,
+            gasPrice: 10000000000,
             gas: 25e8,
-            blockGasLimit: 0x1fffffffffffffff,
+            blockGasLimit: 0x5ffffffffffffffff,
             allowUnlimitedContractSize: true,
         //accounts: ['0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80','0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d'],
         },

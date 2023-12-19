@@ -36,32 +36,46 @@ describe("PeoplesPlatform contract", function() {
   });
 
   it("should be able to donate some amount for this year", async function() {
-    
+    const startMonth = (new Date()).getMonth()+1;
+    const startYear = (new Date()).getFullYear();
     
     const donate120Finney = 120000000000000000n;
-    await peoplesPlatformContract.donate(12,12,2022,{value:donate120Finney});
+    await peoplesPlatformContract.donate(12,"",{value:donate120Finney});
     const balance = await ethers.provider.getBalance(contractAddress);
     
     expect(balance).to.equal(donate120Finney);
+
+    const donationBuckets = await peoplesPlatformContract.donationBuckets();
+
+    expect(donationBuckets.startMonth).to.equal(startMonth);
+    expect(donationBuckets.startYear).to.equal(startYear-1);
+    let sumDonated = 0n;
+    for (let index = 0; index < 48; index++) {
+      sumDonated += BigInt(donationBuckets.donationBuckets[index]);
+    }
+    expect(sumDonated).to.equal(donate120Finney  / 1000000000000000n);
   });
 
   it("should be able to vote on some content", async function() {
-    
+    const startMonth = (new Date()).getMonth()+1;
+    const startYear = (new Date()).getFullYear();
     const {receiver} = await getNamedAccounts();
     
-    await peoplesPlatformContract.vote('https://www.construction-physics.com/p/how-the-gas-turbine-conquered-the',true,address1.address,'Title', 1,2023);
+    await peoplesPlatformContract.vote('https://www.construction-physics.com/p/how-the-gas-turbine-conquered-the',true,address1.address,'Title');
   
     
   });
 
   it("should be able to transfer share", async function() {
-    
+    const startMonth = (new Date()).getMonth()+1;
+    const startYear = (new Date()).getFullYear();
     const {receiver} = await getNamedAccounts();
     
     const recBalanceBefore = BigInt(await ethers.provider.getBalance(receiver));
     console.log('recBalanceBefore:',recBalanceBefore);
     const recPP = peoplesPlatformContract.connect(address1);
-    const tx = await recPP.transfer(address1.address,1,2023,11,2023);
+    //const estimation = BigInt(await recPP.estimateGas.transfer(address1.address,startMonth,startYear,startMonth,startYear))*2n;
+    const tx = await recPP.transfer(address1.address,startMonth-5,startYear);
     //await recPP.bla(receiver,1,2024,1,2023);
     const receipt = await tx.wait();
 

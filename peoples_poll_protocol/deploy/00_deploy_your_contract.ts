@@ -10,13 +10,13 @@ var date = new Date();
  *
  * @param hre HardhatRuntimeEnvironment object.
  */
-console.log("what");
+
 const deployPeoplesPlatform: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+
+  const isTesting =['local_docker','testnet','localhost'].includes( hre.network.name);
   const { deployer } = await hre.getNamedAccounts();
   const [owner,address1,address2] = await ethers.getSigners();
   const { diamond } = hre.deployments;
-
-  console.log(deployer);
 
   await diamond.deploy("PeoplesPlatform", {
     from: owner.address,
@@ -42,7 +42,7 @@ const deployPeoplesPlatform: DeployFunction = async function (hre: HardhatRuntim
     execute: {
       contract: 'InitFacet',
       methodName: 'init',
-      args: [date.getMonth()+1,date.getFullYear()]
+      args: [date.getMonth()+1,isTesting?date.getFullYear()-1:date.getFullYear(),isTesting]
     },
   })
 };

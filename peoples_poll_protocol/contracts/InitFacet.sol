@@ -13,17 +13,19 @@ contract InitFacet is UsingDiamondOwner, StorageHandler {
         
     }
     
-    function init(uint16 currentMonth,uint16 currentYear) external onlyOwner {
+    function init(uint16 currentMonth,uint16 currentYear,bool isTesting) external onlyOwner {
 
         PeoplesPlatformStorage storage pp = pp();
 
-        
+        uint16 currentMonth0Based = currentMonth -1;
 
-        uint16 _currentMonth = currentMonth -1;
+        pp._startDateId = currentYear * 12 + currentMonth0Based;
 
-        pp._startDateId = currentYear * 12 + _currentMonth;
+        pp._isTesting = isTesting;
 
         if (pp.isInitialized) return;
+
+        pp._donationBuckets = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
         pp._isDonatingActive=true;
 

@@ -19,6 +19,14 @@ struct PeoplesPlatformStorage {
     bool _isDonatingActive;
     
     uint16 _startDateId;
+
+    uint32[48] _donationBuckets ; 
+    mapping(uint32 => address[]) _dateIdAddresses;
+    mapping(uint256 => int32) _dateAddressIdVoteValues;
+    mapping(uint256 => bool) _dateAddressIdHasVotes;
+    mapping(uint256 => bool) _monthAddressHasTransfered;
+
+    bool _isTesting;
 }
 
 contract StorageHandler {
