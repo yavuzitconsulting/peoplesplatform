@@ -27,6 +27,10 @@ struct PeoplesPlatformStorage {
     mapping(uint256 => bool) _monthAddressHasTransfered;
 
     bool _isTesting;
+
+    mapping (address => uint64) _fameHoldings;
+    address[] _fameHolders;
+    uint256 _totalFame;
 }
 
 contract StorageHandler {

@@ -23,9 +23,9 @@ contract InitFacet is UsingDiamondOwner, StorageHandler {
 
         pp._isTesting = isTesting;
 
-        if (pp.isInitialized) return;
+        if(pp._donationBuckets.length == 0) pp._donationBuckets = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-        pp._donationBuckets = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        if (pp.isInitialized) return;
 
         pp._isDonatingActive=true;
 

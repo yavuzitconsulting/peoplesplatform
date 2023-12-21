@@ -27,12 +27,16 @@ describe("PeoplesPlatform contract", function() {
     
       });
 
-  it("Deployment should have empty balance", async function() {
+  it("Deployment should have empty balance, myFame and totalFame ", async function() {
     
     
     const balance = await ethers.provider.getBalance(contractAddress);
+    const myFame = await peoplesPlatformContract.myFame();
+    const totalFame = await peoplesPlatformContract.totalFame();
 
     expect(balance).to.equal(0n);
+    expect(myFame).to.equal(0n);
+    expect(totalFame).to.equal(0n);
   });
 
   it("should be able to donate some amount for this year", async function() {
@@ -42,8 +46,12 @@ describe("PeoplesPlatform contract", function() {
     const donate120Finney = 120000000000000000n;
     await peoplesPlatformContract.donate(12,"",{value:donate120Finney});
     const balance = await ethers.provider.getBalance(contractAddress);
+    const myFame = await peoplesPlatformContract.myFame();
+    const totalFame = await peoplesPlatformContract.totalFame();
     
     expect(balance).to.equal(donate120Finney);
+    expect(myFame).to.equal(12n);
+    expect(totalFame).to.equal(12n);
 
     const donationBuckets = await peoplesPlatformContract.donationBuckets();
 
@@ -63,6 +71,11 @@ describe("PeoplesPlatform contract", function() {
     
     await peoplesPlatformContract.vote('https://www.construction-physics.com/p/how-the-gas-turbine-conquered-the',true,address1.address,'Title');
   
+    const myFame = await peoplesPlatformContract.myFame();
+    const totalFame = await peoplesPlatformContract.totalFame();
+
+    expect(myFame).to.equal(13n);
+    expect(totalFame).to.equal(13n);
     
   });
 
@@ -86,5 +99,14 @@ describe("PeoplesPlatform contract", function() {
     const sare10Finney = 10000000000000000n;
 
     expect(recBalanceAfter).to.equal(recBalanceBefore - totalFee + sare10Finney);
+
+    const myFame = await peoplesPlatformContract.myFame();
+    const totalFame = await peoplesPlatformContract.totalFame();
+
+    expect(myFame).to.equal(13n);
+    expect(totalFame).to.equal(14n);
+
+    const myFameA1 = await recPP.myFame();
+    expect(myFameA1).to.equal(1n);
   });
 });

@@ -146,6 +146,18 @@ const contractABI = [
         "internalType": "address",
         "name": "sender",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "month",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "year",
+        "type": "uint16"
       }
     ],
     "name": "Voted",
@@ -162,21 +174,54 @@ const contractABI = [
         "internalType": "string",
         "name": "name",
         "type": "string"
-      },
-      {
-        "internalType": "uint16",
-        "name": "currentMonth",
-        "type": "uint16"
-      },
-      {
-        "internalType": "uint16",
-        "name": "currentYear",
-        "type": "uint16"
       }
     ],
     "name": "donate",
     "outputs": [],
     "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "donationBuckets",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint16",
+            "name": "startMonth",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "startYear",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint32[48]",
+            "name": "donationBuckets",
+            "type": "uint32[48]"
+          }
+        ],
+        "internalType": "struct PeoplesPlatformFacet.DonationBuckets",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "myFame",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -194,6 +239,19 @@ const contractABI = [
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "totalFame",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address payable",
@@ -208,16 +266,6 @@ const contractABI = [
       {
         "internalType": "uint16",
         "name": "year",
-        "type": "uint16"
-      },
-      {
-        "internalType": "uint16",
-        "name": "currentMonth",
-        "type": "uint16"
-      },
-      {
-        "internalType": "uint16",
-        "name": "currentYear",
         "type": "uint16"
       }
     ],
@@ -247,16 +295,6 @@ const contractABI = [
         "internalType": "string",
         "name": "title",
         "type": "string"
-      },
-      {
-        "internalType": "uint16",
-        "name": "currentMonth",
-        "type": "uint16"
-      },
-      {
-        "internalType": "uint16",
-        "name": "currentYear",
-        "type": "uint16"
       }
     ],
     "name": "vote",
@@ -266,11 +304,12 @@ const contractABI = [
   }
 ];
 
-const contractAddress = '0x9e3B92A7762a810CCe3eF7cEb9B0177c595f463f';  // set to current contract address GNOSIS
+// const contractAddress = '0x9e3B92A7762a810CCe3eF7cEb9B0177c595f463f';  // set to current contract address GNOSIS
 // const contractAddress = '0x68AF7F21e3D6D3F38de67a6E0535e9249170BD10';  // set to current contract address NEON
 // const contractAddress = '0x314AA36352771307E942FaeD6d8dfB2398916E92';  // set to current contract address SCROLL
 // const contractAddress = '0xffC39C76C68834FE1149554Ccc1a76C2F1281beD';  // set to current contract address CHIADO
 // const contractAddress = '0x006cA8c68834EaD3292C503ac62c0d1eC9fa2DA7';  // set to current contract address TESTNET
+const contractAddress = '0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6';  // set to current contract address local_docker
 
 
 
@@ -334,14 +373,14 @@ async function voteFromCsvFile() {
     for (let url of urls) {
         const upVote = Math.floor(Math.random() * 10) % 2 ===1;
         try{
-            const gasEstimated = await signerContract.estimateGas.vote(url.url,url.up,url.receiver,url.title,curMonth,curYear);
+            const gasEstimated = await signerContract.estimateGas.vote(url.url,url.up,url.receiver,url.title);
             const tenPercent =   gasEstimated.div(5);
             const maxGas =   gasEstimated.add(tenPercent).mul(10);
             console.log('gasPrice: '+gasEstimated);
             console.log('tenPercent: '+tenPercent);
             console.log('maxGas: '+maxGas);
         
-            const tx = await signerContract.vote(url.url,url.up,url.receiver,url.title,curMonth,curYear);
+            const tx = await signerContract.vote(url.url,url.up,url.receiver,url.title);
                     
            console.log("tx: " + await tx.wait());
 

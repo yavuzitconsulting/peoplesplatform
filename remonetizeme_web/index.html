@@ -1,0 +1,1691 @@
+<html>
+    <head>
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        <meta charset="utf-8">
+        <title>Home - People's Platform</title>
+        <link href="style.css?ver=1.2" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com" rel="preconnect">
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans:regular,500,700" media="all">
+        <script type="text/javascript">WebFont.load({  google: {    families: ["DM Sans:regular,500,700"]  }});</script>
+        <script src="ethers.6.9.0.js"></script>
+    </head>
+    <body style="opacity: 1;" class="bg-neutral">
+        <div class="dashboard-panel">
+            <h3>Donations in xDai (Based on DAI the USD Stablecoin)</h3>
+            <div id="donation-month-buckets">
+                
+                <table>
+                    <thead>
+                        
+                    </thead>
+                    <tbody class="bar-chart">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="dashboard-panel">
+            <h3>Overall votes vs your votes</h3>
+            <div id="votes-month-buckets">
+                
+                <table>
+                    <thead>
+                        
+                    </thead>
+                    <tbody class="bar-chart">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="dashboard-panel">
+            <h3>Unique <span class="votee-word">votee</span>, <span class="content-word">content</span>, <span class="creator-word">creator</span></h3>
+            <div id="votee-month-buckets">
+                
+                <table>
+                    <thead>
+                        
+                    </thead>
+                    <tbody class="bar-chart">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="dashboard-panel">
+            <h3>Your fair money share in xDai</h3>
+            <div id="money-share-month-buckets">
+                
+                <table>
+                    <thead>
+                        
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <style>
+            body{
+                font-family: DM Sans, sans-serif;
+            }
+
+            .bg-neutral {
+                background-color: var(--secondary-1);
+            }
+
+            :root {
+                --primary-1: #355c7d;
+                --primary-2: #6c5b7b;
+                --primary-3: #c06c84;
+                --primary-4: #f67280;
+                --primary-5: #f8b195;
+                --secondary-1: #1e3d58;
+                --secondary-2: #453653;
+                --secondary-3: #98455d;
+                --secondary-4: #d64a58;
+                --secondary-5: #d48667;
+                --third-1: #6289ab;
+                --third-2: #9d91a8;
+                --third-3: #e396ac;
+                --third-4: #f7949e;
+                --third-5: #f7c9b7;
+                --fourth-1: #94b7d5;
+                --fourth-2: #c7c0cd;
+                --fourth-3: #f7bece;
+                --fourth-4: #f8b9bf;
+                --fourth-5: #f8e4dd;
+            }
+
+      
+            .dashboard-panel {
+                border-radius: 10px;
+                background-color: white;
+                padding: 10px;
+                margin: 10px;
+                color: white;
+                background-color: var(--primary-1);
+                
+            }
+
+            .dashboard-panel .votee-word{
+                color: var(--primary-5);
+            }
+
+            .dashboard-panel .content-word{
+                color: var(--primary-4);
+            }
+
+            .dashboard-panel .creator-word{
+                color: var(--primary-3);
+            }
+
+            .dashboard-panel>div{
+                min-height:360px;
+                overflow:auto;  
+            }
+            .dashboard-panel table{
+                table-layout: auto;
+                position: relative;
+                border-spacing: 0;
+                border-collapse: separate;
+                border-radius: 10px;
+                border: 1px solid var(--secondary-1);
+                color: white;
+                
+            }
+            .dashboard-panel table th:not(:last-child),
+            .dashboard-panel table td:not(:last-child) {
+                border-right: 1px solid var(--secondary-1);
+            }
+
+            .dashboard-panel table>thead>tr:not(:last-child)>th,
+            .dashboard-panel table>thead>tr:not(:last-child)>td,
+            .dashboard-panel table>tbody>tr:not(:last-child)>th,
+            .dashboard-panel table>tbody>tr:not(:last-child)>td,
+            .dashboard-panel table>tfoot>tr:not(:last-child)>th,
+            .dashboard-panel table>tfoot>tr:not(:last-child)>td,
+            .dashboard-panel table>tr:not(:last-child)>td,
+            .dashboard-panel table>tr:not(:last-child)>th,
+            .dashboard-panel table>thead:not(:last-child),
+            .dashboard-panel table>tbody:not(:last-child),
+            .dashboard-panel table>tfoot:not(:last-child) {
+                border-bottom: 1px solid var(--secondary-1);
+            }
+            
+            .dashboard-panel table td{
+                padding: 3px;
+                vertical-align: bottom;
+                text-align: center;
+                font-size: smaller;
+            }
+
+            .bar-chart td{
+                position: relative;
+                min-width: 1.7rem;
+                height:255px;
+            }
+            .bar-chart td span.bar{
+                display: inline-block;
+                background-color: var(--primary-5);
+                width: 6px;
+            }
+
+            .bar-chart td span.column-bar{
+                display: inline-block;
+                width: 8px;
+                position: absolute;
+                bottom: 0;
+            }
+
+            .bar-chart td span.column-bar.col-1{
+                left:0;
+                background-color: var(--primary-5);
+            }
+
+            .bar-chart td span.column-bar.col-2{
+                left:9px;
+                background-color: var(--primary-4);
+            }
+
+            .bar-chart td span.column-bar.col-3{
+                background-color: var(--primary-3);
+                left:18px;
+            }
+
+            .bar-chart td span.tick {
+                position: absolute;
+                transform: rotate(-90deg);
+                transform-origin: bottom left;
+                bottom: 2px;
+                font-family: monospace;
+                /* rotate: -90deg; */
+                line-height: 0.7rem;
+                height: 0.7rem;
+                display: inline-block;
+                font-size: 0.7rem;
+                margin-left: 11px;
+                margin-bottom: 2px;
+            }
+
+            .bar-chart td span.column-bar>em {
+                rotate: -90deg;
+                transform-origin: bottom left;
+                position: absolute;
+                font-size: 0.5rem;
+                bottom: 5px;
+                left: 10px;
+                color: var(--primary-1);
+            }
+
+           
+        </style>
+        <script>
+            function updateDonations(donations){
+                let  months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+                let curMonth = (new Date()).getMonth();
+                let curYear = (new Date()).getFullYear();
+                let th = document.querySelector('#donation-month-buckets table thead');
+            
+                let tr = document.createElement("tr");
+                let colSpan = 1;
+                let lY=(curYear -2  + Math.trunc((curMonth + 1) / 12));
+                for (let index = 0; index < 48; index++) {
+                    
+                    let y = (curYear -2  + Math.trunc((index +curMonth + 2) / 12));
+                    
+                    if(y!= lY ){
+                        
+                        let td = document.createElement("td");
+                        td.colSpan=colSpan;
+                        let span = index==23? document.createElement("b"): document.createElement("span");
+                        span.innerHTML= lY.toString();
+                        td.appendChild(span);
+                        tr.appendChild(td);
+                        lY=y;
+                        colSpan=1;
+                    }else{
+                        colSpan++;
+                    }
+                    
+                }
+                
+                th.appendChild(tr);
+                tr = document.createElement("tr");
+                for (let index = 0; index < 48; index++) {
+                    
+                    let td = document.createElement("td");
+                    let span = index==23? document.createElement("b"): document.createElement("span");
+                    span.innerHTML= months[(curMonth + index +1) % 12].substring(0,3);
+                    td.appendChild(span);
+                    tr.appendChild(td);
+                }
+                th.appendChild(tr);
+
+                let tb = document.querySelector('#donation-month-buckets table tbody');
+                tr = document.createElement("tr");
+                tb.appendChild(tr);
+                for (let index = 0; index < 48; index++) {
+                    
+                    let td = document.createElement("td");
+                    let span = document.createElement("span");
+                    span.classList="bar val-"+Math.trunc(donations[index].relValue*255);
+                    span.innerHTML=`&nbsp`;
+                    if(index===35) td.classList="scroll";
+                    td.appendChild(span);
+                    span = document.createElement("span");
+                    span.classList="tick";
+                    span.innerHTML=`${(Number(donations[index].value)/1000).toFixed(3)}`;
+                    if(index===35) td.classList="scroll";
+                    td.appendChild(span);
+                    tr.appendChild(td);
+                }
+                tb.appendChild(tr);
+            
+                document.querySelector('#donation-month-buckets table tbody .scroll').scrollIntoView(false);
+            }
+
+            function updateOverallVotes(voteGroups){
+                let  months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+                let curMonth = (new Date()).getMonth();
+                let curYear = (new Date()).getFullYear();
+                let th = document.querySelector('#votes-month-buckets table thead');
+            
+                let tr = document.createElement("tr");
+                let colSpan = 1;
+                let lY=(curYear -2  + Math.trunc((curMonth + 1) / 12));
+                for (let index = 0; index < 24; index++) {
+                    
+                    let y = (curYear -2  + Math.trunc((index +curMonth + 2) / 12));
+                    
+                    if(y!= lY ){
+                        
+                        let td = document.createElement("td");
+                        td.colSpan=colSpan;
+                        let span = index==23? document.createElement("b"): document.createElement("span");
+                        span.innerHTML= lY.toString();
+                        td.appendChild(span);
+                        tr.appendChild(td);
+                        lY=y;
+                        colSpan=1;
+                    }else{
+                        colSpan++;
+                    }
+                    
+                }
+                
+                th.appendChild(tr);
+                tr = document.createElement("tr");
+                for (let index = 0; index < 24; index++) {
+                    
+                    let td = document.createElement("td");
+                    let span = index==23? document.createElement("b"): document.createElement("span");
+                    span.innerHTML= months[(curMonth + index +1) % 12].substring(0,3);
+                    td.appendChild(span);
+                    tr.appendChild(td);
+                }
+                th.appendChild(tr);
+
+                let tb = document.querySelector('#votes-month-buckets table tbody');
+                tr = document.createElement("tr");
+                tb.appendChild(tr);
+                const dateId = curYear*12+curMonth;
+                for (let index = -23 ; index <= 0; index++) {
+                    
+                    let td = document.createElement("td");
+                    let span = document.createElement("span");
+                    const voteGroup = voteGroups['id'+(dateId-index)];
+                    span.classList="bar val-"+Math.trunc(voteGroup===undefined?0:voteGroup.relVotesLength*255);
+                    span.innerHTML=`&nbsp`;
+                    if(index===35) td.classList="scroll";
+                    td.appendChild(span);
+                    span = document.createElement("span");
+                    span.classList="tick";
+                    span.innerHTML=`${voteGroup===undefined?0:voteGroup.votes.length}`;
+                    if(index===35) td.classList="scroll";
+                    td.appendChild(span);
+                    tr.appendChild(td);
+                }
+                tb.appendChild(tr);
+            
+            }
+
+            function updateUniqueContentReceiverSender(voteGroups){
+                let  months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+                let curMonth = (new Date()).getMonth();
+                let curYear = (new Date()).getFullYear();
+                let th = document.querySelector('#votee-month-buckets table thead');
+            
+                let tr = document.createElement("tr");
+                let colSpan = 1;
+                let lY=(curYear -2  + Math.trunc((curMonth + 1) / 12));
+                for (let index = 0; index < 24; index++) {
+                    
+                    let y = (curYear -2  + Math.trunc((index +curMonth + 2) / 12));
+                    
+                    if(y!= lY ){
+                        
+                        let td = document.createElement("td");
+                        td.colSpan=colSpan;
+                        let span = index==23? document.createElement("b"): document.createElement("span");
+                        span.innerHTML= lY.toString();
+                        td.appendChild(span);
+                        tr.appendChild(td);
+                        lY=y;
+                        colSpan=1;
+                    }else{
+                        colSpan++;
+                    }
+                    
+                }
+                
+                th.appendChild(tr);
+                tr = document.createElement("tr");
+                for (let index = 0; index < 24; index++) {
+                    
+                    let td = document.createElement("td");
+                    let span = index==23? document.createElement("b"): document.createElement("span");
+                    span.innerHTML= months[(curMonth + index +1) % 12].substring(0,3);
+                    td.appendChild(span);
+                    tr.appendChild(td);
+                }
+                th.appendChild(tr);
+
+                let tb = document.querySelector('#votee-month-buckets table tbody');
+                tr = document.createElement("tr");
+                tb.appendChild(tr);
+                const dateId = curYear*12+curMonth;
+                for (let index = -23 ; index <= 0; index++) {
+                    
+                    let td = document.createElement("td");
+                    const voteGroup = voteGroups['id'+(dateId-index)];
+
+                    let span = document.createElement("span");
+                    
+                    span.classList="column-bar col-1 val-"+Math.trunc(voteGroup===undefined?0:voteGroup.relUniqueSender*255);
+                    span.innerHTML=`<em>${voteGroup===undefined?0:voteGroup.uniqueSender}</em>`;
+                    td.appendChild(span);
+               
+                    span = document.createElement("span");
+                    
+                    span.classList="column-bar col-2 val-"+Math.trunc(voteGroup===undefined?0:voteGroup.relUniqueContent*255);
+                    span.innerHTML=`<em>${voteGroup===undefined?0:voteGroup.uniqueContent}</em>`;
+                    td.appendChild(span);
+
+                    span = document.createElement("span");
+                    
+                    span.classList="column-bar col-3 val-"+Math.trunc(voteGroup===undefined?0:voteGroup.relUniqueReceiver*255);
+                    span.innerHTML=`<em>${voteGroup===undefined?0:voteGroup.uniqueReceiver}</em>`;
+                    td.appendChild(span);
+
+                    td.appendChild(span);
+                    tr.appendChild(td);
+                }
+                tb.appendChild(tr);
+            
+            }
+
+            contractABI=[
+                {
+                "anonymous": false,
+                "inputs": [
+                    {
+                    "indexed": false,
+                    "internalType": "uint64",
+                    "name": "donatedFinney",
+                    "type": "uint64"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "months",
+                    "type": "uint16"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "currentMonth",
+                    "type": "uint16"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "currentYear",
+                    "type": "uint16"
+                    }
+                ],
+                "name": "Donated",
+                "type": "event"
+                },
+                {
+                "anonymous": false,
+                "inputs": [
+                    {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "shareFinney",
+                    "type": "uint32"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint32",
+                    "name": "transferDateId",
+                    "type": "uint32"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "transferFromDonationBucketPos",
+                    "type": "uint16"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "month",
+                    "type": "uint16"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "year",
+                    "type": "uint16"
+                    }
+                ],
+                "name": "RemovedFromDonationBucket",
+                "type": "event"
+                },
+                {
+                "anonymous": false,
+                "inputs": [
+                    {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "month",
+                    "type": "uint16"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "year",
+                    "type": "uint16"
+                    }
+                ],
+                "name": "TransferedFairShare",
+                "type": "event"
+                },
+                {
+                "anonymous": false,
+                "inputs": [
+                    {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "url",
+                    "type": "string"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "up",
+                    "type": "bool"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "title",
+                    "type": "string"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint8",
+                    "name": "month",
+                    "type": "uint8"
+                    },
+                    {
+                    "indexed": false,
+                    "internalType": "uint16",
+                    "name": "year",
+                    "type": "uint16"
+                    }
+                ],
+                "name": "Voted",
+                "type": "event"
+                },
+                {
+                "inputs": [
+                    {
+                    "internalType": "uint16",
+                    "name": "months",
+                    "type": "uint16"
+                    },
+                    {
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                    }
+                ],
+                "name": "donate",
+                "outputs": [],
+                "stateMutability": "payable",
+                "type": "function"
+                },
+                {
+                "inputs": [],
+                "name": "donationBuckets",
+                "outputs": [
+                    {
+                    "components": [
+                        {
+                        "internalType": "uint16",
+                        "name": "startMonth",
+                        "type": "uint16"
+                        },
+                        {
+                        "internalType": "uint16",
+                        "name": "startYear",
+                        "type": "uint16"
+                        },
+                        {
+                        "internalType": "uint32[48]",
+                        "name": "donationBuckets",
+                        "type": "uint32[48]"
+                        }
+                    ],
+                    "internalType": "struct PeoplesPlatformFacet.DonationBuckets",
+                    "name": "",
+                    "type": "tuple"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+                },
+                {
+                "inputs": [],
+                "name": "myFame",
+                "outputs": [
+                    {
+                    "internalType": "uint64",
+                    "name": "",
+                    "type": "uint64"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+                },
+                {
+                "inputs": [],
+                "name": "setDonatingActive",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+                },
+                {
+                "inputs": [],
+                "name": "setDonatingInactive",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+                },
+                {
+                "inputs": [],
+                "name": "totalFame",
+                "outputs": [
+                    {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+                },
+                {
+                "inputs": [
+                    {
+                    "internalType": "address payable",
+                    "name": "to",
+                    "type": "address"
+                    },
+                    {
+                    "internalType": "uint16",
+                    "name": "month",
+                    "type": "uint16"
+                    },
+                    {
+                    "internalType": "uint16",
+                    "name": "year",
+                    "type": "uint16"
+                    }
+                ],
+                "name": "transfer",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+                },
+                {
+                "inputs": [
+                    {
+                    "internalType": "string",
+                    "name": "url",
+                    "type": "string"
+                    },
+                    {
+                    "internalType": "bool",
+                    "name": "up",
+                    "type": "bool"
+                    },
+                    {
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                    },
+                    {
+                    "internalType": "string",
+                    "name": "title",
+                    "type": "string"
+                    }
+                ],
+                "name": "vote",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+                }
+            ]
+            let contractAddressMapping = 
+            [
+                {"contractAddress":"0x9e3B92A7762a810CCe3eF7cEb9B0177c595f463f", "chainId": 100}, //gnosis
+                {"contractAddress":"0x188C8d37fb966713CbDc7cCc1A6ed3da060FFac3", "chainId": 501984}, //testnet
+                {"contractAddress":"0x314AA36352771307E942FaeD6d8dfB2398916E92", "chainId": 534351}, //scroll
+                {"contractAddress":"0x9A1554a110A593b5C137643529FAA258a710245C", "chainId": 245022926},
+                {"contractAddress":"0xffC39C76C68834FE1149554Ccc1a76C2F1281beD", "chainId": 10200},
+                {"contractAddress":"0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6", "chainId": 31337} //local docker 
+            ];
+
+            let contractAddress;
+  
+
+            let provider ;
+            let signer ;
+            let contract ;
+
+            let lastVotedBlock=0;
+
+            let cachedVotes=[];
+
+            async function initiateContract()
+            {
+                
+                provider = new ethers.BrowserProvider(window.ethereum);
+                signer = await provider.getSigner();
+
+                
+                // Get the current chain ID from MetaMask
+                const chainId = Number((await provider.getNetwork()).chainId);
+
+                // Find the contract address corresponding to the current chain ID
+                const mapping = contractAddressMapping.find(m => m.chainId === chainId);
+                if (!mapping) {
+                    console.log('chainid not found in mapping: '+chainId);
+                    throw new Error(`Contract address not found for chain ID ${chainId}`);
+                }
+
+                contractAddress = mapping.contractAddress;
+
+                contract = new ethers.Contract(contractAddress, contractABI, signer);
+            }
+
+            window.ethereum = window.ethereum || {};
+
+
+            function getCurrentChainNameAndId()
+            { 
+                initiateContract().then(()=>{
+                    provider.getNetwork().then((network)=>{
+                        const chainId =Number(network.chainId);
+                        const chainName = network.name;
+
+                    });
+                    
+                });
+                
+            }
+
+
+      
+            async function asyncGetDonations(){
+                let currentMonth0Based = (new Date()).getMonth();
+                let curYear = (new Date()).getFullYear();
+                try {
+                    const donationBuckets = await contract.donationBuckets();
+                    const maxDonation = Math.max(...donationBuckets.donationBuckets.map((b)=>Number(b)));
+                    const startDateId = Number(donationBuckets.startYear)*12+Number(donationBuckets.startMonth)-1;
+                    const currentDateId = (curYear*12+currentMonth0Based);
+                    const currentRelativeDateId = currentDateId-startDateId;
+                    const currentBucketPos = currentRelativeDateId % 48;
+                    let donations = [];
+                    for (let i = currentRelativeDateId-23; i <= currentRelativeDateId + 24; i++) {
+                   
+                        const bucket =Number(donationBuckets.donationBuckets[i<0?48+i:i]);
+                        donations.push({
+                            value:bucket,
+                            relValue:maxDonation===0?0:bucket/maxDonation,
+                            year:Math.trunc((currentDateId+i-currentRelativeDateId)/12),
+                            month:(currentDateId+i-currentRelativeDateId)%12
+                        });
+                    }
+                    return donations;
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+
+            async function asyncGetVotes(){
+               
+                try {
+                    const eventFilter = contract.filters.Voted();
+                    eventFilter.toBlock=await provider.getBlockNumber();
+                    eventFilter.fromBlock=lastVotedBlock === 0 ? 0:lastVotedBlock;
+                    if(eventFilter.fromBlock===eventFilter.toBlock) return cachedVotes;
+                    lastVotedBlock=eventFilter.toBlock;
+                    let events = await contract.queryFilter('Voted',0, eventFilter.toBlock);
+
+                
+                    let votes=cachedVotes;
+                    console.debug(events);
+                    for (const log of events) {
+                    const logId = log.blockNumber * 100000+ log.index;
+                    const data = contract.interface.decodeEventLog("Voted",log.data);
+                    console.log(`url:${data.url},up:${data.up},title:${data.title},receiver:${data.receiver},sender:${data.sender},month:${data.month},year:${data.year}`);
+                    data.logId=logId;
+                    data.year =Number(data.year);
+                    if(cachedVotes.filter((awd)=>awd.logId===logId).length===0) votes.push({
+                        url:data.url,
+                        up:data.up,
+                        title:data.title,
+                        receiver:data.receiver,
+                        sender:data.sender,
+                        month:Number(data.month),
+                        year:Number(data.year),
+                        logId:logId
+                    });
+                    }
+                    
+                    cachedVotes=votes;
+                    
+                    return cachedVotes;
+
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+            initiateContract().then(()=>{
+                asyncGetDonations().then((donations)=>{
+                    updateDonations(donations);
+                });
+
+                asyncGetVotes().then((votes)=>{
+                 
+                    let votesGrpByDate = votes.reduce((a,c)=>{
+                        if(a[`id${c.year*12+c.month-1}`]=== undefined){
+                            a[`id${c.year*12+c.month-1}`]={
+                                month:c.month,
+                                year:c.year,
+                                votes:[c]
+                            }
+                        }else{
+                            a[`id${c.year*12+c.month-1}`].votes.push(c);
+                        }
+                        return a;
+                    },{});
+                    const maxVotesCount = Math.max(Object.keys(votesGrpByDate).map((k)=>votesGrpByDate[k].votes.length));
+                    Object.keys(votesGrpByDate).forEach((k)=>{
+                        votesGrpByDate[k].relVotesLength=votesGrpByDate[k].votes.length/maxVotesCount;
+                        votesGrpByDate[k].uniqueContent=votesGrpByDate[k].votes.reduce((a,c)=>{
+                            if( a.contentHash.indexOf(c.url)===-1){
+                                a.contentHash.push(c.url);
+                                a.count++;
+                            }
+                            return a;
+                        },{contentHash:[],count:0}).count;
+                        votesGrpByDate[k].uniqueSender=votesGrpByDate[k].votes.reduce((a,c)=>{
+                            if( a.contentHash.indexOf(c.sender)===-1){
+                                a.contentHash.push(c.sender);
+                                a.count++;
+                            }
+                            return a;
+                        },{contentHash:[],count:0}).count;
+                        votesGrpByDate[k].uniqueReceiver=votesGrpByDate[k].votes.reduce((a,c)=>{
+                            if( a.contentHash.indexOf(c.receiver)===-1){
+                                a.contentHash.push(c.receiver);
+                                a.count++;
+                            }
+                            return a;
+                        },{contentHash:[],count:0}).count;
+                    })
+                    
+                    const maxUniqueContent = Math.max(Object.keys(votesGrpByDate).map((k)=>votesGrpByDate[k].uniqueContent));
+                    const maxUniqueSender = Math.max(Object.keys(votesGrpByDate).map((k)=>votesGrpByDate[k].uniqueSender));
+                    const maxUniqueReceiver = Math.max(Object.keys(votesGrpByDate).map((k)=>votesGrpByDate[k].uniqueReceiver));
+                    const maxUnique = Math.max(...[maxUniqueContent,maxUniqueSender,maxUniqueReceiver])
+                    Object.keys(votesGrpByDate).forEach((k)=>{
+                        votesGrpByDate[k].relUniqueContent=votesGrpByDate[k].uniqueContent/maxUnique;
+                        votesGrpByDate[k].relUniqueSender=votesGrpByDate[k].uniqueSender/maxUnique;
+                        votesGrpByDate[k].relUniqueReceiver=votesGrpByDate[k].uniqueReceiver/maxUnique;
+                    });
+                    updateOverallVotes(votesGrpByDate);
+                    updateUniqueContentReceiverSender(votesGrpByDate);
+                });
+            });
+
+        </script>
+    </body>
+    <style>
+        .val-0{
+            height: 0px;
+        }
+        .val-1{
+            height: 1px;
+        }
+        .val-2{
+            height: 2px;
+        }
+        .val-3{
+            height: 3px;
+        }
+        .val-4{
+            height: 4px;
+        }
+        .val-5{
+            height: 5px;
+        }
+        .val-6{
+            height: 6px;
+        }
+        .val-7{
+            height: 7px;
+        }
+        .val-8{
+            height: 8px;
+        }
+        .val-9{
+            height: 9px;
+        }
+        .val-10{
+            height: 10px;
+        }
+        .val-11{
+            height: 11px;
+        }
+        .val-12{
+            height: 12px;
+        }
+        .val-13{
+            height: 13px;
+        }
+        .val-14{
+            height: 14px;
+        }
+        .val-15{
+            height: 15px;
+        }
+        .val-16{
+            height: 16px;
+        }
+        .val-17{
+            height: 17px;
+        }
+        .val-18{
+            height: 18px;
+        }
+        .val-19{
+            height: 19px;
+        }
+        .val-20{
+            height: 20px;
+        }
+        .val-21{
+            height: 21px;
+        }
+        .val-22{
+            height: 22px;
+        }
+        .val-23{
+            height: 23px;
+        }
+        .val-24{
+            height: 24px;
+        }
+        .val-25{
+            height: 25px;
+        }
+        .val-26{
+            height: 26px;
+        }
+        .val-27{
+            height: 27px;
+        }
+        .val-28{
+            height: 28px;
+        }
+        .val-29{
+            height: 29px;
+        }
+        .val-30{
+            height: 30px;
+        }
+        .val-31{
+            height: 31px;
+        }
+        .val-32{
+            height: 32px;
+        }
+        .val-33{
+            height: 33px;
+        }
+        .val-34{
+            height: 34px;
+        }
+        .val-35{
+            height: 35px;
+        }
+        .val-36{
+            height: 36px;
+        }
+        .val-37{
+            height: 37px;
+        }
+        .val-38{
+            height: 38px;
+        }
+        .val-39{
+            height: 39px;
+        }
+        .val-40{
+            height: 40px;
+        }
+        .val-41{
+            height: 41px;
+        }
+        .val-42{
+            height: 42px;
+        }
+        .val-43{
+            height: 43px;
+        }
+        .val-44{
+            height: 44px;
+        }
+        .val-45{
+            height: 45px;
+        }
+        .val-46{
+            height: 46px;
+        }
+        .val-47{
+            height: 47px;
+        }
+        .val-48{
+            height: 48px;
+        }
+        .val-49{
+            height: 49px;
+        }
+        .val-50{
+            height: 50px;
+        }
+        .val-51{
+            height: 51px;
+        }
+        .val-52{
+            height: 52px;
+        }
+        .val-53{
+            height: 53px;
+        }
+        .val-54{
+            height: 54px;
+        }
+        .val-55{
+            height: 55px;
+        }
+        .val-56{
+            height: 56px;
+        }
+        .val-57{
+            height: 57px;
+        }
+        .val-58{
+            height: 58px;
+        }
+        .val-59{
+            height: 59px;
+        }
+        .val-60{
+            height: 60px;
+        }
+        .val-61{
+            height: 61px;
+        }
+        .val-62{
+            height: 62px;
+        }
+        .val-63{
+            height: 63px;
+        }
+        .val-64{
+            height: 64px;
+        }
+        .val-65{
+            height: 65px;
+        }
+        .val-66{
+            height: 66px;
+        }
+        .val-67{
+            height: 67px;
+        }
+        .val-68{
+            height: 68px;
+        }
+        .val-69{
+            height: 69px;
+        }
+        .val-70{
+            height: 70px;
+        }
+        .val-71{
+            height: 71px;
+        }
+        .val-72{
+            height: 72px;
+        }
+        .val-73{
+            height: 73px;
+        }
+        .val-74{
+            height: 74px;
+        }
+        .val-75{
+            height: 75px;
+        }
+        .val-76{
+            height: 76px;
+        }
+        .val-77{
+            height: 77px;
+        }
+        .val-78{
+            height: 78px;
+        }
+        .val-79{
+            height: 79px;
+        }
+        .val-80{
+            height: 80px;
+        }
+        .val-81{
+            height: 81px;
+        }
+        .val-82{
+            height: 82px;
+        }
+        .val-83{
+            height: 83px;
+        }
+        .val-84{
+            height: 84px;
+        }
+        .val-85{
+            height: 85px;
+        }
+        .val-86{
+            height: 86px;
+        }
+        .val-87{
+            height: 87px;
+        }
+        .val-88{
+            height: 88px;
+        }
+        .val-89{
+            height: 89px;
+        }
+        .val-90{
+            height: 90px;
+        }
+        .val-91{
+            height: 91px;
+        }
+        .val-92{
+            height: 92px;
+        }
+        .val-93{
+            height: 93px;
+        }
+        .val-94{
+            height: 94px;
+        }
+        .val-95{
+            height: 95px;
+        }
+        .val-96{
+            height: 96px;
+        }
+        .val-97{
+            height: 97px;
+        }
+        .val-98{
+            height: 98px;
+        }
+        .val-99{
+            height: 99px;
+        }
+        .val-100{
+            height: 100px;
+        }
+        .val-101{
+            height: 101px;
+        }
+        .val-102{
+            height: 102px;
+        }
+        .val-103{
+            height: 103px;
+        }
+        .val-104{
+            height: 104px;
+        }
+        .val-105{
+            height: 105px;
+        }
+        .val-106{
+            height: 106px;
+        }
+        .val-107{
+            height: 107px;
+        }
+        .val-108{
+            height: 108px;
+        }
+        .val-109{
+            height: 109px;
+        }
+        .val-110{
+            height: 110px;
+        }
+        .val-111{
+            height: 111px;
+        }
+        .val-112{
+            height: 112px;
+        }
+        .val-113{
+            height: 113px;
+        }
+        .val-114{
+            height: 114px;
+        }
+        .val-115{
+            height: 115px;
+        }
+        .val-116{
+            height: 116px;
+        }
+        .val-117{
+            height: 117px;
+        }
+        .val-118{
+            height: 118px;
+        }
+        .val-119{
+            height: 119px;
+        }
+        .val-120{
+            height: 120px;
+        }
+        .val-121{
+            height: 121px;
+        }
+        .val-122{
+            height: 122px;
+        }
+        .val-123{
+            height: 123px;
+        }
+        .val-124{
+            height: 124px;
+        }
+        .val-125{
+            height: 125px;
+        }
+        .val-126{
+            height: 126px;
+        }
+        .val-127{
+            height: 127px;
+        }
+        .val-128{
+            height: 128px;
+        }
+        .val-129{
+            height: 129px;
+        }
+        .val-130{
+            height: 130px;
+        }
+        .val-131{
+            height: 131px;
+        }
+        .val-132{
+            height: 132px;
+        }
+        .val-133{
+            height: 133px;
+        }
+        .val-134{
+            height: 134px;
+        }
+        .val-135{
+            height: 135px;
+        }
+        .val-136{
+            height: 136px;
+        }
+        .val-137{
+            height: 137px;
+        }
+        .val-138{
+            height: 138px;
+        }
+        .val-139{
+            height: 139px;
+        }
+        .val-140{
+            height: 140px;
+        }
+        .val-141{
+            height: 141px;
+        }
+        .val-142{
+            height: 142px;
+        }
+        .val-143{
+            height: 143px;
+        }
+        .val-144{
+            height: 144px;
+        }
+        .val-145{
+            height: 145px;
+        }
+        .val-146{
+            height: 146px;
+        }
+        .val-147{
+            height: 147px;
+        }
+        .val-148{
+            height: 148px;
+        }
+        .val-149{
+            height: 149px;
+        }
+        .val-150{
+            height: 150px;
+        }
+        .val-151{
+            height: 151px;
+        }
+        .val-152{
+            height: 152px;
+        }
+        .val-153{
+            height: 153px;
+        }
+        .val-154{
+            height: 154px;
+        }
+        .val-155{
+            height: 155px;
+        }
+        .val-156{
+            height: 156px;
+        }
+        .val-157{
+            height: 157px;
+        }
+        .val-158{
+            height: 158px;
+        }
+        .val-159{
+            height: 159px;
+        }
+        .val-160{
+            height: 160px;
+        }
+        .val-161{
+            height: 161px;
+        }
+        .val-162{
+            height: 162px;
+        }
+        .val-163{
+            height: 163px;
+        }
+        .val-164{
+            height: 164px;
+        }
+        .val-165{
+            height: 165px;
+        }
+        .val-166{
+            height: 166px;
+        }
+        .val-167{
+            height: 167px;
+        }
+        .val-168{
+            height: 168px;
+        }
+        .val-169{
+            height: 169px;
+        }
+        .val-170{
+            height: 170px;
+        }
+        .val-171{
+            height: 171px;
+        }
+        .val-172{
+            height: 172px;
+        }
+        .val-173{
+            height: 173px;
+        }
+        .val-174{
+            height: 174px;
+        }
+        .val-175{
+            height: 175px;
+        }
+        .val-176{
+            height: 176px;
+        }
+        .val-177{
+            height: 177px;
+        }
+        .val-178{
+            height: 178px;
+        }
+        .val-179{
+            height: 179px;
+        }
+        .val-180{
+            height: 180px;
+        }
+        .val-181{
+            height: 181px;
+        }
+        .val-182{
+            height: 182px;
+        }
+        .val-183{
+            height: 183px;
+        }
+        .val-184{
+            height: 184px;
+        }
+        .val-185{
+            height: 185px;
+        }
+        .val-186{
+            height: 186px;
+        }
+        .val-187{
+            height: 187px;
+        }
+        .val-188{
+            height: 188px;
+        }
+        .val-189{
+            height: 189px;
+        }
+        .val-190{
+            height: 190px;
+        }
+        .val-191{
+            height: 191px;
+        }
+        .val-192{
+            height: 192px;
+        }
+        .val-193{
+            height: 193px;
+        }
+        .val-194{
+            height: 194px;
+        }
+        .val-195{
+            height: 195px;
+        }
+        .val-196{
+            height: 196px;
+        }
+        .val-197{
+            height: 197px;
+        }
+        .val-198{
+            height: 198px;
+        }
+        .val-199{
+            height: 199px;
+        }
+        .val-200{
+            height: 200px;
+        }
+        .val-201{
+            height: 201px;
+        }
+        .val-202{
+            height: 202px;
+        }
+        .val-203{
+            height: 203px;
+        }
+        .val-204{
+            height: 204px;
+        }
+        .val-205{
+            height: 205px;
+        }
+        .val-206{
+            height: 206px;
+        }
+        .val-207{
+            height: 207px;
+        }
+        .val-208{
+            height: 208px;
+        }
+        .val-209{
+            height: 209px;
+        }
+        .val-210{
+            height: 210px;
+        }
+        .val-211{
+            height: 211px;
+        }
+        .val-212{
+            height: 212px;
+        }
+        .val-213{
+            height: 213px;
+        }
+        .val-214{
+            height: 214px;
+        }
+        .val-215{
+            height: 215px;
+        }
+        .val-216{
+            height: 216px;
+        }
+        .val-217{
+            height: 217px;
+        }
+        .val-218{
+            height: 218px;
+        }
+        .val-219{
+            height: 219px;
+        }
+        .val-220{
+            height: 220px;
+        }
+        .val-221{
+            height: 221px;
+        }
+        .val-222{
+            height: 222px;
+        }
+        .val-223{
+            height: 223px;
+        }
+        .val-224{
+            height: 224px;
+        }
+        .val-225{
+            height: 225px;
+        }
+        .val-226{
+            height: 226px;
+        }
+        .val-227{
+            height: 227px;
+        }
+        .val-228{
+            height: 228px;
+        }
+        .val-229{
+            height: 229px;
+        }
+        .val-230{
+            height: 230px;
+        }
+        .val-231{
+            height: 231px;
+        }
+        .val-232{
+            height: 232px;
+        }
+        .val-233{
+            height: 233px;
+        }
+        .val-234{
+            height: 234px;
+        }
+        .val-235{
+            height: 235px;
+        }
+        .val-236{
+            height: 236px;
+        }
+        .val-237{
+            height: 237px;
+        }
+        .val-238{
+            height: 238px;
+        }
+        .val-239{
+            height: 239px;
+        }
+        .val-240{
+            height: 240px;
+        }
+        .val-241{
+            height: 241px;
+        }
+        .val-242{
+            height: 242px;
+        }
+        .val-243{
+            height: 243px;
+        }
+        .val-244{
+            height: 244px;
+        }
+        .val-245{
+            height: 245px;
+        }
+        .val-246{
+            height: 246px;
+        }
+        .val-247{
+            height: 247px;
+        }
+        .val-248{
+            height: 248px;
+        }
+        .val-249{
+            height: 249px;
+        }
+        .val-250{
+            height: 250px;
+        }
+        .val-251{
+            height: 251px;
+        }
+        .val-252{
+            height: 252px;
+        }
+        .val-253{
+            height: 253px;
+        }
+        .val-254{
+            height: 254px;
+        }
+        .val-255{
+            height: 255px;
+        }
+        
+    </style>
+</html>

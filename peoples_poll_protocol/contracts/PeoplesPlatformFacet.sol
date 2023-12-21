@@ -21,7 +21,7 @@ contract PeoplesPlatformFacet is StorageHandler, UsingDiamondOwner {
     using Strings for uint256;
 
     
-    event Voted(string url,bool up,string title,address receiver,address sender);
+    event Voted(string url,bool up,string title,address receiver,address sender,uint8 month, uint16 year);
     event Donated(uint64 donatedFinney, string name ,uint16 months,uint16 currentMonth,uint16 currentYear);
     event TransferedFairShare(uint256 amount,address to,uint16 month,uint16 year);
     event RemovedFromDonationBucket(uint32 shareFinney,uint32 transferDateId,uint16 transferFromDonationBucketPos, uint16 month, uint16 year);
@@ -68,6 +68,9 @@ contract PeoplesPlatformFacet is StorageHandler, UsingDiamondOwner {
 
         }
 
+        pp._fameHoldings[msg.sender] += uint64( donatedValueInFinney / 10);
+        pp._totalFame += donatedValueInFinney / 10;
+
         emit Donated(uint64(donatedValueInFinney),name, months, date.month, date.year);
 
     }
@@ -76,9 +79,10 @@ contract PeoplesPlatformFacet is StorageHandler, UsingDiamondOwner {
         LibPeoplesPlatform._DateTime memory date = LibPeoplesPlatform.parseTimestamp(block.timestamp);
         uint16 currentMonth0Based = date.month-1;
         uint160 uintAddress = uint160(receiver);
+        PeoplesPlatformStorage storage pp = pp();
         if(uintAddress & uint160(0x1111000000000000000000000000000000000000) != uint160(0x1111000000000000000000000000000000000000))
         {
-            PeoplesPlatformStorage storage pp = pp();
+            
 
             uint32 testSubMonths = pp._isTesting?5:0;
             uint32 voteDateId = date.year * 12 + currentMonth0Based - testSubMonths;
@@ -96,7 +100,10 @@ contract PeoplesPlatformFacet is StorageHandler, UsingDiamondOwner {
                 pp._dateAddressIdVoteValues[dateAddressId]--;
             }
         }
-        emit Voted(url, up,title,receiver,msg.sender);
+        pp._fameHoldings[msg.sender] += 1;
+        pp._totalFame += 1;
+
+        emit Voted(url, up,title,receiver,msg.sender,date.month,date.year);
     }
 
     function transfer(address payable to, uint16 month, uint16 year) public {
@@ -131,13 +138,24 @@ contract PeoplesPlatformFacet is StorageHandler, UsingDiamondOwner {
         pp._donationBuckets[transferFromDonationBucketPos] -= shareFinney;
         pp._monthAddressHasTransfered[monthSenderAddressId]=true;
         to.transfer(shareFinney*1_000_000_000_000_000);
+        pp._fameHoldings[msg.sender] += shareFinney / 10;
+        pp._totalFame += shareFinney / 10;
         emit TransferedFairShare(shareFinney*1_000_000_000_000_000, to,month, year);
         emit RemovedFromDonationBucket(shareFinney,transferDateId,transferFromDonationBucketPos, month, year);
     }
 
     function donationBuckets() public view returns(DonationBuckets memory) {
         PeoplesPlatformStorage storage pp = pp();
-        return DonationBuckets(pp._startDateId % 12 + 1,pp._startDateId / 12,pp._donationBuckets);
-       
+        return DonationBuckets(pp._startDateId % 12 + 1,pp._startDateId / 12,pp._donationBuckets);  
+    }
+
+    function totalFame() public view returns(uint256) {
+        PeoplesPlatformStorage storage pp = pp();
+        return pp._totalFame;  
+    }
+
+    function myFame() public view returns(uint64) {
+        PeoplesPlatformStorage storage pp = pp();
+        return pp._fameHoldings[msg.sender];  
     }
 }
