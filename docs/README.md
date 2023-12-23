@@ -8,7 +8,7 @@
 - Fair Share of donated money via [Remonetize Me Dashboard](https://remonetize-me.com/)
 
 **What It Is Not:**
-- No Financial Risk or Investment Required
+- Financial Risk or Investment Required. Really nothing extra to do here.
 - Contrary with YouTube's Rules
 
 **What to Do:**
@@ -17,6 +17,7 @@
 - Add a Wallet Address to Your Content Description to Receive a Fair Share of Donations Monthly
    for example: 
    > #peoplesnetwork:0x67b........537b1a301
+- Optionally promote the cause within your community
 
 ## Content Consumers aka Votees
 
@@ -38,6 +39,7 @@
 - Install the [Peoples Choice Extender](https://chromewebstore.google.com/detail/peoples-choice-extender/nkkmoejolocjebnfebdhoggjhmiibkej?hl=de) in Chrome for Instant Voting (~15 Votes Funded)
 - Optionally Subscribe to Our [Voices Unleashed Newsletter](https://voicesunleashedorg.substack.com/)
 - To Continue, Connect Your Gnosis Wallet with the [Peoples Choice Extender](https://chromewebstore.google.com/detail/peoples-choice-extender/nkkmoejolocjebnfebdhoggjhmiibkej?hl=de) and Fund with a maximum of ~$1 (1 xDai)
+- Optionally promote the cause within your community
 
 ## Donators
 
@@ -55,6 +57,7 @@
 - Subscribe to Our [Voices Unleashed Newsletter](https://voicesunleashedorg.substack.com/) for Updates
 - Visit VoicesUnleashed.org to Donate a Minimum of $0.001 (0.001xDai)
 - Assistance Available for Individual Donations
+- Optionally promote the cause within your community
 
 ## Connect with us via
 [Twitter](https://twitter.com/VoicesUnleashe)
